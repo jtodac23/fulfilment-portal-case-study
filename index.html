@@ -24,7 +24,7 @@
 }
 *{box-sizing:border-box}
 html,body{margin:0}
-body{background:var(--page);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+body{background:var(--page);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
 img{max-width:100%}
 [hidden]{display:none!important}
 .wrap{max-width:78rem;margin:0 auto;padding-inline:20px}
@@ -35,14 +35,14 @@ h2{font-size:clamp(1.5rem,3.4vw,2.05rem);line-height:1.12;letter-spacing:-.022em
 h3{font-size:1.02rem;line-height:1.28;letter-spacing:-.008em}
 p{margin:0}
 a{color:var(--accent)}
-.eyebrow{font-family:var(--mono);font-size:.66rem;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3)}
+.eyebrow{font-family:var(--mono);font-size:.72rem;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3)}
 .mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
 .muted{color:var(--ink-2)}
 
 .hero{background:var(--surface);border-bottom:1px solid var(--rule)}
 .hero .wrap{padding-block:34px 0}
 .tagrow{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:18px}
-.tag{font-family:var(--mono);font-size:.64rem;letter-spacing:.09em;text-transform:uppercase;padding:3px 9px;border-radius:99px;border:1px solid var(--rule-2);color:var(--ink-2);background:var(--surface-2)}
+.tag{font-family:var(--mono);font-size:.7rem;letter-spacing:.09em;text-transform:uppercase;padding:3px 9px;border-radius:99px;border:1px solid var(--rule-2);color:var(--ink-2);background:var(--surface-2)}
 .tag.hi{border-color:var(--brand);color:var(--brand);background:var(--brand-soft)}
 .hero h1{margin-bottom:14px}
 .hero h1 em{font-style:normal;color:var(--brand)}
@@ -54,53 +54,53 @@ a{color:var(--accent)}
 .steps button:hover{background:var(--surface)}
 .steps button[aria-current="true"]{background:var(--surface)}
 .steps button[aria-current="true"]::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:var(--brand)}
-.steps .n{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;background:var(--surface-3);color:var(--ink-3);font-family:var(--mono);font-size:.66rem;margin-bottom:5px}
+.steps .n{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;background:var(--surface-3);color:var(--ink-3);font-family:var(--mono);font-size:.72rem;margin-bottom:5px}
 .steps button[aria-current="true"] .n{background:var(--brand);color:#fff}
 .steps button.done .n{background:var(--ok);color:#fff}
-.steps .l{display:block;font-size:.8rem;font-weight:600;color:var(--ink);line-height:1.2}
-.steps .d{display:block;font-size:.72rem;color:var(--ink-3);line-height:1.25;margin-top:2px}
+.steps .l{display:block;font-size:.86rem;font-weight:600;color:var(--ink);line-height:1.2}
+.steps .d{display:block;font-size:.78rem;color:var(--ink-3);line-height:1.25;margin-top:2px}
 @media(max-width:800px){.steps{flex-wrap:wrap}.steps button{flex:1 1 45%;border-bottom:1px solid var(--rule)}}
 @media(max-width:460px){.steps button{flex:1 1 100%}.steps .d{display:none}}
 .guide{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:14px;padding:12px 16px;border-radius:10px;background:var(--accent-soft);border:1px solid var(--accent)}
-.guide p{font-size:.9rem;color:var(--ink);flex:1 1 18rem;min-width:0}
+.guide p{font-size:.95rem;color:var(--ink);flex:1 1 18rem;min-width:0}
 .guide p b{color:var(--accent)}
 
 .appwrap{padding-block:22px 40px}
 .app{border-radius:12px;overflow:hidden;background:var(--surface);box-shadow:var(--sh-3);border:1px solid var(--rule-2)}
 .chrome{display:flex;align-items:center;gap:8px;padding:9px 14px;background:var(--surface-3);border-bottom:1px solid var(--rule)}
 .dot{width:10px;height:10px;border-radius:50%;background:var(--rule-2)}
-.urlbar{flex:1;max-width:30rem;margin:0 auto;background:var(--surface);border:1px solid var(--rule-2);border-radius:99px;padding:3px 12px;font-family:var(--mono);font-size:.68rem;color:var(--ink-3);text-align:center;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.urlbar{flex:1;max-width:30rem;margin:0 auto;background:var(--surface);border:1px solid var(--rule-2);border-radius:99px;padding:3px 12px;font-family:var(--mono);font-size:.74rem;color:var(--ink-3);text-align:center;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .topbar{display:flex;align-items:center;gap:12px;padding:12px 18px;border-bottom:1px solid var(--rule);background:var(--surface);flex-wrap:wrap}
 .logo{font-family:var(--display);font-weight:800;font-size:.95rem;letter-spacing:-.02em}
 .logo i{font-style:normal;color:var(--brand)}
-.logo span{display:block;font-family:var(--mono);font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);font-weight:400}
+.logo span{display:block;font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);font-weight:400}
 .topbar .spacer{flex:1}
 .userchip{display:flex;align-items:center;gap:9px;padding:5px 11px 5px 6px;border:1px solid var(--rule);border-radius:99px;background:var(--surface-2)}
-.av{width:28px;height:28px;border-radius:50%;background:var(--brand);color:#fff;display:grid;place-items:center;font-family:var(--mono);font-size:.64rem;font-weight:500}
-.userchip .nm{font-size:.78rem;font-weight:600;line-height:1.15;display:block}
-.userchip .rl{font-size:.68rem;color:var(--ink-3);line-height:1.15;display:block}
+.av{width:28px;height:28px;border-radius:50%;background:var(--brand);color:#fff;display:grid;place-items:center;font-family:var(--mono);font-size:.7rem;font-weight:500}
+.userchip .nm{font-size:.84rem;font-weight:600;line-height:1.15;display:block}
+.userchip .rl{font-size:.74rem;color:var(--ink-3);line-height:1.15;display:block}
 
 /* Who you are. The biggest control on the page, because switching it is the
    demo. Grouped by company so the two sides of the account read as two sides. */
 .roleswitch{display:flex;flex-wrap:wrap;align-items:center;gap:14px;padding:12px 18px;background:var(--surface-2);border-bottom:1px solid var(--rule)}
-.rsl{font-family:var(--mono);font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-3)}
+.rsl{font-family:var(--mono);font-size:.66rem;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-3)}
 .rgroup{display:flex;align-items:stretch;border:1px solid var(--rule-2);border-radius:9px;overflow:hidden;background:var(--surface);box-shadow:var(--sh-1)}
-.rgroup .org{display:flex;align-items:center;padding:0 10px;font-family:var(--mono);font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:#fff;white-space:nowrap}
+.rgroup .org{display:flex;align-items:center;padding:0 10px;font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:#fff;white-space:nowrap}
 .rgroup.client .org{background:var(--accent)}
 .rgroup.njv .org{background:var(--brand)}
-.rgroup button{appearance:none;border:0;border-left:1px solid var(--rule);background:transparent;cursor:pointer;padding:8px 13px;font-family:var(--body);font-size:.79rem;color:var(--ink-2);white-space:nowrap}
+.rgroup button{appearance:none;border:0;border-left:1px solid var(--rule);background:transparent;cursor:pointer;padding:8px 13px;font-family:var(--body);font-size:.85rem;color:var(--ink-2);white-space:nowrap}
 .rgroup button:hover{background:var(--surface-2);color:var(--ink)}
 .rgroup button[aria-current="true"]{color:var(--ink);font-weight:600;background:var(--surface-2);box-shadow:inset 0 -3px 0 var(--ink)}
 .rgroup button:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
 
 /* Which screen. An ordinary tab strip, where tabs live. */
 .tabstrip{display:flex;gap:2px;padding:0 18px;border-bottom:1px solid var(--rule);background:var(--surface);overflow-x:auto}
-.tabstrip button{appearance:none;border:0;background:transparent;cursor:pointer;padding:11px 12px;font-family:var(--body);font-size:.83rem;color:var(--ink-2);border-bottom:2px solid transparent;display:flex;align-items:center;gap:7px;white-space:nowrap}
+.tabstrip button{appearance:none;border:0;background:transparent;cursor:pointer;padding:11px 12px;font-family:var(--body);font-size:.89rem;color:var(--ink-2);border-bottom:2px solid transparent;display:flex;align-items:center;gap:7px;white-space:nowrap}
 .tabstrip button:hover{color:var(--ink)}
 .tabstrip button[aria-current="true"]{color:var(--ink);font-weight:600;border-bottom-color:var(--brand)}
 .tabstrip button:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
 .tabstrip .ic{width:15px;height:15px;opacity:.75}
-.tabstrip .cnt{font-family:var(--mono);font-size:.68rem;color:var(--ink-3);background:var(--surface-3);border-radius:99px;padding:0 6px}
+.tabstrip .cnt{font-family:var(--mono);font-size:.74rem;color:var(--ink-3);background:var(--surface-3);border-radius:99px;padding:0 6px}
 .main{padding:18px;background:var(--page);min-width:0;min-height:520px}
 
 /* The guided step points at the control it is asking you to press. Being told
@@ -117,25 +117,25 @@ a{color:var(--accent)}
 
 .hd{display:flex;align-items:flex-end;gap:12px;margin-bottom:14px;flex-wrap:wrap}
 .hd h3{font-size:1.2rem;letter-spacing:-.018em}
-.hd .sub{font-size:.81rem;color:var(--ink-3);display:block}
+.hd .sub{font-size:.87rem;color:var(--ink-3);display:block}
 .hd .act{margin-left:auto;display:flex;gap:7px;align-items:center}
 .card{background:var(--surface);border:1px solid var(--rule);border-radius:9px;box-shadow:var(--sh-1);overflow:hidden}
 .card+.card{margin-top:12px}
 .detail .card+.card{margin-top:0}
-.ch{padding:10px 14px;border-bottom:1px solid var(--rule);display:flex;align-items:center;gap:9px;font-size:.78rem;font-weight:600}
-.ch .r{margin-left:auto;font-weight:400;color:var(--ink-3);font-size:.75rem}
-.row{display:flex;align-items:center;gap:11px;padding:11px 14px;border-bottom:1px solid var(--rule);font-size:.84rem}
+.ch{padding:10px 14px;border-bottom:1px solid var(--rule);display:flex;align-items:center;gap:9px;font-size:.84rem;font-weight:600}
+.ch .r{margin-left:auto;font-weight:400;color:var(--ink-3);font-size:.81rem}
+.row{display:flex;align-items:center;gap:12px;padding:13px 14px;border-bottom:1px solid var(--rule);font-size:.9rem}
 .row:last-child{border-bottom:0}
 .row.click{cursor:pointer}
 .row.click:hover{background:var(--surface-2)}
-.ref{font-family:var(--mono);font-size:.75rem;white-space:nowrap;font-weight:500}
+.ref{font-family:var(--mono);font-size:.81rem;white-space:nowrap;font-weight:500}
 .site{color:var(--ink);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1 1 auto;font-weight:500}
 .right{margin-left:auto;display:flex;align-items:center;gap:12px;white-space:nowrap}
-.state{font-size:.79rem;color:var(--ink-2)}
-.when{font-family:var(--mono);font-size:.72rem;color:var(--ink-3)}
+.state{font-size:.85rem;color:var(--ink-2)}
+.when{font-family:var(--mono);font-size:.78rem;color:var(--ink-3)}
 .stripe{width:3px;align-self:stretch;border-radius:2px;background:transparent;flex:0 0 auto;margin:-11px 0}
 .stripe.bad{background:var(--bad)}.stripe.ok{background:var(--ok)}.stripe.warn{background:var(--warn)}
-.pill{display:inline-flex;align-items:center;gap:4px;font-size:.67rem;font-weight:600;padding:2px 8px;border-radius:99px;white-space:nowrap}
+.pill{display:inline-flex;align-items:center;gap:4px;font-size:.73rem;font-weight:600;padding:2px 8px;border-radius:99px;white-space:nowrap}
 .pill.urgent{background:var(--brand);color:#fff}
 .pill.was{background:transparent;color:var(--ink-3);border:1px solid var(--rule-2);font-weight:500}
 .pill.ok{background:var(--ok-soft);color:var(--ok)}
@@ -149,66 +149,66 @@ a{color:var(--accent)}
 @media(max-width:620px){.rail .link{width:10px}}
 .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:10px;margin-bottom:12px}
 .stat{background:var(--surface);border:1px solid var(--rule);border-radius:9px;padding:12px 14px;box-shadow:var(--sh-1)}
-.stat dt{font-size:.7rem;color:var(--ink-3)}
-.stat dd{margin:3px 0 0;font-family:var(--display);font-size:1.8rem;font-weight:700;letter-spacing:-.03em;font-variant-numeric:tabular-nums;line-height:1}
-.stat .fine{font-size:.68rem;color:var(--ink-3);margin-top:4px}
+.stat dt{font-size:.76rem;color:var(--ink-3)}
+.stat dd{margin:4px 0 0;font-family:var(--display);font-size:1.9rem;font-weight:700;letter-spacing:-.03em;font-variant-numeric:tabular-nums;line-height:1}
+.stat .fine{font-size:.74rem;color:var(--ink-3);margin-top:4px}
 .stat.good dd{color:var(--ok)}.stat.bad dd{color:var(--bad)}
-.btn{appearance:none;font-family:var(--body);font-size:.81rem;font-weight:600;padding:8px 14px;border-radius:7px;border:1px solid var(--rule-2);background:var(--surface);color:var(--ink);cursor:pointer;box-shadow:var(--sh-1)}
+.btn{appearance:none;font-family:var(--body);font-size:.87rem;font-weight:600;padding:8px 14px;border-radius:7px;border:1px solid var(--rule-2);background:var(--surface);color:var(--ink);cursor:pointer;box-shadow:var(--sh-1)}
 .btn:hover{background:var(--surface-2)}
 .btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .btn.primary{background:var(--brand);border-color:var(--brand);color:#fff}
 .btn.primary:hover{background:var(--brand-2);border-color:var(--brand-2)}
-.btn.sm{font-size:.74rem;padding:5px 10px}
+.btn.sm{font-size:.8rem;padding:5px 10px}
 .btn.ghost{background:transparent;box-shadow:none;border-color:transparent;color:var(--ink-2)}
 .field{display:grid;gap:5px;margin-bottom:12px}
-.field label{font-size:.75rem;font-weight:600;color:var(--ink-2)}
-.field input,.field select{font-family:var(--body);font-size:.85rem;padding:8px 10px;border:1px solid var(--rule-2);border-radius:7px;background:var(--surface);color:var(--ink);width:100%}
+.field label{font-size:.81rem;font-weight:600;color:var(--ink-2)}
+.field input,.field select{font-family:var(--body);font-size:.91rem;padding:8px 10px;border:1px solid var(--rule-2);border-radius:7px;background:var(--surface);color:var(--ink);width:100%}
 .field input:focus,.field select:focus{outline:2px solid var(--accent);outline-offset:-1px}
 .g2{display:grid;gap:12px;grid-template-columns:1fr 1fr}
 @media(max-width:620px){.g2{grid-template-columns:1fr}}
 .pri{display:grid;grid-template-columns:1fr 1fr;gap:9px}
 .pri button{text-align:left;padding:10px 12px;border:1px solid var(--rule-2);border-radius:8px;background:var(--surface);cursor:pointer;font-family:var(--body)}
 .pri button[aria-pressed="true"]{border-color:var(--brand);box-shadow:inset 0 0 0 1px var(--brand);background:var(--brand-soft)}
-.pri b{display:block;font-size:.84rem}
-.pri span{font-size:.72rem;color:var(--ink-3)}
+.pri b{display:block;font-size:.9rem}
+.pri span{font-size:.78rem;color:var(--ink-3)}
 .chartbox{background:var(--surface);border:1px solid var(--rule);border-radius:9px;padding:14px;box-shadow:var(--sh-1)}
-.chartbox h4{font-size:.82rem}
-.chartbox .cap{font-size:.71rem;color:var(--ink-3);margin-bottom:10px}
+.chartbox h4{font-size:.88rem}
+.chartbox .cap{font-size:.77rem;color:var(--ink-3);margin-bottom:10px}
 .device{width:308px;max-width:100%;margin:0 auto;border:9px solid #1d232c;border-radius:32px;background:#1d232c;box-shadow:var(--sh-2)}
 .device .nub{height:18px;display:grid;place-items:center}
 .device .nub i{display:block;width:72px;height:4px;border-radius:99px;background:rgba(255,255,255,.3)}
 .device .scr{background:var(--page);border-radius:24px;overflow:hidden;min-height:400px}
 .dtop{padding:11px 14px;background:var(--brand);color:#fff}
-.dtop .r1{font-family:var(--mono);font-size:.65rem;opacity:.9}
+.dtop .r1{font-family:var(--mono);font-size:.71rem;opacity:.9}
 .dtop .r2{font-weight:600;font-size:.92rem;line-height:1.2;margin-top:1px}
 .dbody{padding:12px 14px}
-.step{display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-bottom:1px solid var(--rule);font-size:.83rem}
+.step{display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-bottom:1px solid var(--rule);font-size:.89rem}
 .step:last-of-type{border-bottom:0}
-.tick{width:19px;height:19px;border-radius:50%;flex:0 0 auto;display:grid;place-items:center;font-family:var(--mono);font-size:.62rem;background:var(--surface-3);color:var(--ink-3)}
+.tick{width:19px;height:19px;border-radius:50%;flex:0 0 auto;display:grid;place-items:center;font-family:var(--mono);font-size:.68rem;background:var(--surface-3);color:var(--ink-3)}
 .tick.done{background:var(--ok);color:#fff}
 .tick.now{background:var(--brand);color:#fff}
 canvas.sig{width:100%;height:112px;border:1px dashed var(--rule-2);border-radius:8px;background:var(--surface);touch-action:none;display:block}
-.itemrow{display:flex;align-items:center;gap:9px;padding:8px 0;border-bottom:1px solid var(--rule);font-size:.82rem}
+.itemrow{display:flex;align-items:center;gap:9px;padding:8px 0;border-bottom:1px solid var(--rule);font-size:.88rem}
 .itemrow:last-child{border-bottom:0}
 .itemrow input[type=number]{width:58px;padding:5px 7px;font-family:var(--mono);border:1px solid var(--rule-2);border-radius:6px;background:var(--surface);color:var(--ink)}
-.mark{width:19px;height:19px;border-radius:50%;display:grid;place-items:center;font-size:.6rem;flex:0 0 auto;border:2px dashed var(--rule-2);color:transparent}
+.mark{width:19px;height:19px;border-radius:50%;display:grid;place-items:center;font-size:.66rem;flex:0 0 auto;border:2px dashed var(--rule-2);color:transparent}
 .mark.ok{background:var(--ok);border:0;color:#fff}
 .mark.part{background:var(--surface);border:2px solid var(--accent);color:var(--accent)}
 .mark.short{background:var(--warn-soft);border:1px solid var(--warn);color:var(--warn)}
-.note{border-radius:8px;padding:10px 13px;font-size:.82rem;margin-bottom:12px;border:1px solid transparent}
+.note{border-radius:8px;padding:10px 13px;font-size:.88rem;margin-bottom:12px;border:1px solid transparent}
 .note.ok{background:var(--ok-soft);color:var(--ok);border-color:var(--ok)}
 .note.info{background:var(--accent-soft);color:var(--accent);border-color:var(--accent)}
-.empty{padding:34px 14px;text-align:center;color:var(--ink-3);font-size:.85rem}
-.tl .e{display:grid;grid-template-columns:auto 1fr;gap:11px;padding:8px 0;border-bottom:1px solid var(--rule);font-size:.81rem}
+.empty{padding:34px 14px;text-align:center;color:var(--ink-3);font-size:.91rem}
+.tl .e{display:grid;grid-template-columns:auto 1fr;gap:11px;padding:8px 0;border-bottom:1px solid var(--rule);font-size:.87rem}
 .tl .e:last-child{border-bottom:0}
-.tl .t{font-family:var(--mono);font-size:.71rem;color:var(--ink-3);white-space:nowrap}
-.tl .w{font-size:.7rem;color:var(--ink-3)}
+.tl .t{font-family:var(--mono);font-size:.77rem;color:var(--ink-3);white-space:nowrap}
+.tl .w{font-size:.76rem;color:var(--ink-3)}
 .bar{height:7px;border-radius:99px;background:var(--surface-3);overflow:hidden}
 .bar i{display:block;height:100%;border-radius:99px;background:var(--ink-3)}
 .bar i.hot{background:var(--brand)}
 [data-why]{position:relative}
 body.notes [data-why]{outline:1.5px dashed var(--accent);outline-offset:3px;border-radius:5px}
-.pin{position:absolute;top:-10px;right:-10px;z-index:6;width:21px;height:21px;border-radius:50%;background:var(--accent);color:#fff;font-family:var(--mono);font-size:.63rem;display:grid;place-items:center;border:2px solid var(--surface);cursor:pointer;padding:0;box-shadow:var(--sh-1)}
+.pin{position:absolute;top:-10px;right:-10px;z-index:6;width:21px;height:21px;border-radius:50%;background:var(--accent);color:#fff;font-family:var(--mono);font-size:.69rem;display:grid;place-items:center;border:2px solid var(--surface);cursor:pointer;padding:0;box-shadow:var(--sh-1)}
 .pin:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
 .notepanel{position:fixed;inset:auto 0 0 0;z-index:60;background:var(--surface);border-top:3px solid var(--accent);box-shadow:0 -14px 50px -22px rgba(0,0,0,.6);padding:18px 20px calc(18px + env(safe-area-inset-bottom,0px));max-height:58vh;overflow:auto}
 .notepanel .in{max-width:44rem;margin:0 auto;display:grid;gap:8px}
@@ -222,20 +222,8 @@ body.notes [data-why]{outline:1.5px dashed var(--accent);outline-offset:3px;bord
 section{border-top:1px solid var(--rule)}
 section>.wrap{padding-block:52px}
 .sec-head{display:grid;gap:11px;margin-bottom:28px}
-.deck{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(272px,1fr))}
-.dcard{background:var(--surface);border:1px solid var(--rule);border-radius:11px;padding:18px;box-shadow:var(--sh-1);display:grid;gap:9px;align-content:start}
-.dcard .k{font-family:var(--mono);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--brand)}
-.dcard h3{font-size:1rem}
-.dcard p{font-size:.88rem;color:var(--ink-2)}
-.dcard .claim{color:var(--ink);font-weight:500}
-.dcard .flip{border-top:1px solid var(--rule);padding-top:10px;display:grid;gap:5px}
-.dcard .was{font-size:.79rem;color:var(--ink-3);text-decoration:line-through;text-decoration-color:var(--rule-2)}
-.dcard .now{font-size:.85rem;color:var(--ink);font-weight:500}
-.openlist{border-top:1px solid var(--rule)}
-.openlist>div{padding:16px 0;border-bottom:1px solid var(--rule);display:grid;gap:4px}
-.openlist p{font-size:.89rem;color:var(--ink-2)}
 footer .wrap{padding-block:30px 48px;display:grid;gap:7px}
-footer p{font-size:.82rem;color:var(--ink-3)}
+footer p{font-size:.88rem;color:var(--ink-3)}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
@@ -266,36 +254,28 @@ footer p{font-size:.82rem;color:var(--ink-3)}
         <span class="logo">Component <i>Fulfilment</i><span>Lift components · Klang Valley</span></span>
         <span class="spacer"></span>
         <button class="switch" id="noteToggle" aria-pressed="false" aria-label="Show my reasoning"></button>
-        <span style="font-size:.76rem;color:var(--ink-2)">Show my reasoning</span>
+        <span style="font-size:.82rem;color:var(--ink-2)">Show my reasoning</span>
         <span class="userchip"><span class="av" id="av"></span><span><span class="nm" id="nm"></span><span class="rl" id="rl"></span></span></span>
       </div>
       <div class="roleswitch" id="roleswitch"></div>
       <div class="tabstrip" id="tabstrip"></div>
       <div class="main" id="main"></div>
     </div>
-    <p class="muted" style="font-size:.78rem;margin-top:10px;text-align:center">Live reconstruction. Illustrative data, nothing leaves your browser. <button class="btn sm ghost" id="resetBtn">Reset the data</button></p>
+    <p class="muted" style="font-size:.84rem;margin-top:10px;text-align:center">Live reconstruction. Illustrative data, nothing leaves your browser. <button class="btn sm ghost" id="resetBtn">Reset the data</button></p>
   </div>
 </header>
 
 <section>
-  <div class="wrap">
-    <div class="sec-head narrow">
-      <span class="eyebrow">Decisions</span>
-      <h2>Six calls I would defend in a review</h2>
-      <p class="muted">Half are reversals. I shipped the obvious thing, watched it fail against a real reader, and rebuilt it.</p>
-    </div>
-    <div class="deck" id="deck"></div>
-  </div>
-</section>
-
-<section>
-  <div class="wrap narrow">
+  <div class="wrap narrow" style="padding-block:44px">
     <div class="sec-head">
-      <span class="eyebrow">Not done</span>
-      <h2>What I would want asked in an interview</h2>
-      <p class="muted">A case study that only lists wins is a sales page.</p>
+      <span class="eyebrow">How to read this</span>
+      <h2>The reasoning is on the screens</h2>
     </div>
-    <div class="openlist" id="opens"></div>
+    <p class="muted">
+      Turn on <strong>Show my reasoning</strong> in the top bar and numbered pins appear on
+      the controls that carry a design decision. Each one says what was there before, why it
+      failed against a real reader, and what replaced it. Several are reversals.
+    </p>
   </div>
 </section>
 
@@ -593,11 +573,11 @@ function newForm(){
    '<button type="button" data-pri="NORMAL" aria-pressed="'+(d.priority==="NORMAL")+'"><b>Normal</b><span>Inside the window you set</span></button>'+
    '<button type="button" data-pri="URGENT" aria-pressed="'+(d.priority==="URGENT")+'"><b>Urgent</b><span>Jumps the queue. A stopped lift</span></button></div></div>'+
    '<div class="field"><label>Components</label>'+d.items.map((i,x)=>
-     '<div class="itemrow" style="border:0;padding:4px 0"><select data-part="'+x+'" style="flex:1;padding:8px 10px;border:1px solid var(--rule-2);border-radius:7px;background:var(--surface);color:var(--ink);font-family:var(--body);font-size:.85rem"><option value="">Choose a part…</option>'+
+     '<div class="itemrow" style="border:0;padding:4px 0"><select data-part="'+x+'" style="flex:1;padding:8px 10px;border:1px solid var(--rule-2);border-radius:7px;background:var(--surface);color:var(--ink);font-family:var(--body);font-size:.91rem"><option value="">Choose a part…</option>'+
      PARTS.map(p=>'<option value="'+p[0]+'"'+(i.sku===p[0]?" selected":"")+">"+esc(p[1])+" ("+p[0]+")</option>").join("")+
      '</select><input type="number" min="1" value="'+i.qty+'" data-qty="'+x+'"></div>').join("")+
    '<button class="btn sm" id="addLine" style="margin-top:6px;justify-self:start">+ Add a line</button></div>'+
-   '<div style="display:flex;gap:10px;align-items:center;margin-top:6px;flex-wrap:wrap"><button class="btn primary" id="go">Submit request</button><span class="muted" style="font-size:.78rem">It lands unassigned on the control tower board.</span></div>'+
+   '<div style="display:flex;gap:10px;align-items:center;margin-top:6px;flex-wrap:wrap"><button class="btn primary" id="go">Submit request</button><span class="muted" style="font-size:.84rem">It lands unassigned on the control tower board.</span></div>'+
    "</div></div>";
 }
 function insights(){
@@ -624,7 +604,7 @@ function insights(){
   let siteBars="";
   SITES.slice(0,5).forEach(s=>{
     const n=DB.orders.filter(o=>o.deliver===s).length,w=Math.max(4,n/Math.max(1,DB.orders.length)*240);
-    siteBars+='<div style="margin-bottom:9px"><div style="display:flex;justify-content:space-between;font-size:.78rem"><span>'+esc(s)+'</span><span class="mono">'+n+'</span></div><div class="bar" style="margin-top:3px"><i style="width:'+Math.min(100,w)+'%"></i></div></div>';
+    siteBars+='<div style="margin-bottom:9px"><div style="display:flex;justify-content:space-between;font-size:.84rem"><span>'+esc(s)+'</span><span class="mono">'+n+'</span></div><div class="bar" style="margin-top:3px"><i style="width:'+Math.min(100,w)+'%"></i></div></div>';
   });
   return '<div class="hd"><div><h3>Insights</h3><span class="sub">Every figure is the gap between two recorded events</span></div></div>'+
    '<div class="stats">'+
@@ -667,7 +647,7 @@ function board(){
 }
 function driverJobs(){
   const js=DB.orders.filter(o=>mine(o,"driver"));
-  if(!js.length)return '<div class="empty">No jobs on this phone.<br><span style="font-size:.8rem">Go to the control tower and offer one to Arun Maniam (DRV-005).</span></div>';
+  if(!js.length)return '<div class="empty">No jobs on this phone.<br><span style="font-size:.86rem">Go to the control tower and offer one to Arun Maniam (DRV-005).</span></div>';
   return '<div class="device"><div class="nub"><i></i></div><div class="scr">'+js.map(job).join("")+"</div></div>";
 }
 function job(o){
@@ -675,8 +655,8 @@ function job(o){
   let cur=-1;
   for(let i=0;i<st.length;i++){if(!st[i][1]){cur=i;break;}}
   let h='<div class="dtop"><div class="r1">'+esc(o.ref)+(o.priority==="URGENT"?" · URGENT":"")+'</div><div class="r2">'+esc(o.deliver)+'</div></div><div class="dbody">'+
-    '<div style="font-size:.75rem;color:var(--ink-3);margin-bottom:8px">from '+esc(o.pickup)+" · deliver by "+fmtT(o.dueAt)+"</div>";
-  h+=st.map((s,i)=>'<div class="step"><span class="tick'+(s[1]?" done":(i===cur?" now":""))+'">'+(s[1]?"✓":i+1)+'</span><span>'+esc(s[0])+(s[1]?'<br><span class="mono" style="font-size:.7rem;color:var(--ink-3)">'+fmtT(s[1])+"</span>":"")+"</span></div>").join("");
+    '<div style="font-size:.81rem;color:var(--ink-3);margin-bottom:8px">from '+esc(o.pickup)+" · deliver by "+fmtT(o.dueAt)+"</div>";
+  h+=st.map((s,i)=>'<div class="step"><span class="tick'+(s[1]?" done":(i===cur?" now":""))+'">'+(s[1]?"✓":i+1)+'</span><span>'+esc(s[0])+(s[1]?'<br><span class="mono" style="font-size:.76rem;color:var(--ink-3)">'+fmtT(s[1])+"</span>":"")+"</span></div>").join("");
   if(o.status==="OFFERED")h+='<div style="margin-top:12px;display:flex;gap:8px"><button class="btn primary" style="flex:1" data-acc="'+o.id+'">Accept</button><button class="btn" data-dec="'+o.id+'">Decline</button></div>';
   else if(o.status==="ACCEPTED")h+=cpForm(o,"CP2");
   else if(o.status==="PICKED_UP")h+=cpForm(o,"CP3");
@@ -686,16 +666,16 @@ function job(o){
 function cpForm(o,k){
   const coll=k==="CP2";
   let h='<div style="margin-top:12px;border-top:1px solid var(--rule);padding-top:11px">'+
-   '<div style="font-size:.7rem;font-weight:600;color:var(--ink-3);letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px">'+(coll?"What is on the shelf":"What you are handing over")+"</div>"+
+   '<div style="font-size:.76rem;font-weight:600;color:var(--ink-3);letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px">'+(coll?"What is on the shelf":"What you are handing over")+"</div>"+
    '<div data-why="items">'+o.items.map((i,x)=>{
      const mxq=coll?i.qty:i.picked;
-     return '<div class="itemrow"><span class="mark" id="m'+o.id+"-"+x+'">✓</span><span style="flex:1"><span style="display:block">'+esc(i.desc)+'</span><span class="mono" style="font-size:.67rem;color:var(--ink-3)">'+esc(i.sku)+" · ordered "+i.qty+'</span></span><input type="number" min="0" max="'+mxq+'" value="'+mxq+'" data-q="'+x+'" data-o="'+o.id+'"></div>';
+     return '<div class="itemrow"><span class="mark" id="m'+o.id+"-"+x+'">✓</span><span style="flex:1"><span style="display:block">'+esc(i.desc)+'</span><span class="mono" style="font-size:.73rem;color:var(--ink-3)">'+esc(i.sku)+" · ordered "+i.qty+'</span></span><input type="number" min="0" max="'+mxq+'" value="'+mxq+'" data-q="'+x+'" data-o="'+o.id+'"></div>';
    }).join("")+"</div>"+
-   '<div class="note info" style="margin:10px 0 0;font-size:.75rem;padding:8px 10px">Photo captured. Time and location written onto it by the server.</div>';
-  if(!coll)h+='<div style="margin-top:11px" data-why="sign"><div style="font-size:.7rem;font-weight:600;color:var(--ink-3);letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px">Signed by</div>'+
+   '<div class="note info" style="margin:10px 0 0;font-size:.81rem;padding:8px 10px">Photo captured. Time and location written onto it by the server.</div>';
+  if(!coll)h+='<div style="margin-top:11px" data-why="sign"><div style="font-size:.76rem;font-weight:600;color:var(--ink-3);letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px">Signed by</div>'+
    '<div class="field" style="margin-bottom:7px"><input id="sn" placeholder="Name of the person receiving" value="'+esc(o.technician)+'"></div>'+
    '<canvas class="sig" id="sp" width="560" height="220" aria-label="Signature pad"></canvas>'+
-   '<div style="display:flex;justify-content:space-between;align-items:center;margin-top:5px"><span style="font-size:.7rem;color:var(--ink-3)">Sign with your mouse or finger</span><button class="btn sm ghost" id="sc">Clear</button></div></div>';
+   '<div style="display:flex;justify-content:space-between;align-items:center;margin-top:5px"><span style="font-size:.76rem;color:var(--ink-3)">Sign with your mouse or finger</span><button class="btn sm ghost" id="sc">Clear</button></div></div>';
   return h+'<div style="margin-top:12px"><button class="btn primary" style="width:100%" data-cp="'+k+'" data-o="'+o.id+'">'+(coll?"Confirm collection":"Confirm delivery")+"</button></div></div>";
 }
 function r2(k,v){return '<div class="row"><span class="site" style="font-weight:400;color:var(--ink-2)">'+esc(k)+'</span><span class="right"><span class="state" style="color:var(--ink);font-weight:500">'+esc(v)+"</span></span></div>";}
@@ -736,25 +716,25 @@ function orderView(o){
     h+='<div class="card wide" data-why="manual"><div class="ch">Offer it to a driver<span class="r">their live load is shown</span></div><div style="padding:10px 14px;display:grid;gap:8px">'+
       DRIVERS.map(dr=>{
         const ld=DB.orders.filter(x=>x.driver&&x.driver.code===dr.code&&!closed(x)).length;
-        return '<div class="row" style="border:1px solid var(--rule);border-radius:8px"><span class="site">'+esc(dr.name)+'<br><span class="mono" style="font-size:.67rem;color:var(--ink-3);font-weight:400">'+esc(dr.code)+" · "+esc(dr.v)+'</span></span><span class="right"><span class="pill n">'+ld+' live</span><button class="btn sm primary" data-as="'+o.id+"|"+dr.code+'">Offer</button></span></div>';
+        return '<div class="row" style="border:1px solid var(--rule);border-radius:8px"><span class="site">'+esc(dr.name)+'<br><span class="mono" style="font-size:.73rem;color:var(--ink-3);font-weight:400">'+esc(dr.code)+" · "+esc(dr.v)+'</span></span><span class="right"><span class="pill n">'+ld+' live</span><button class="btn sm primary" data-as="'+o.id+"|"+dr.code+'">Offer</button></span></div>';
       }).join("")+"</div></div>";
   }
   h+='<div class="card wide" data-why="items"><div class="ch">Items<span class="r">'+itemSum(o)+'</span></div><div style="padding:6px 14px">'+
     o.items.map(i=>{
       const s=lineState(i);
-      return '<div class="itemrow"><span class="mark '+s.c+'">✓</span><span style="flex:1"><span style="display:block;font-weight:500">'+esc(i.desc)+'</span><span style="font-size:.72rem;color:'+s.col+'">'+esc(s.l)+(i.shortReason?" · "+esc(i.shortReason):"")+'</span></span><span class="mono" style="font-size:.69rem;color:var(--ink-3)">'+esc(i.sku)+'</span><span class="mono" style="width:2rem;text-align:right">'+i.qty+'</span><span class="mono" style="width:2rem;text-align:right;color:var(--ink-2)">'+(i.picked==null?"—":i.picked)+'</span><span class="mono" style="width:2rem;text-align:right;color:var(--ink-2)">'+(i.delivered==null?"—":i.delivered)+"</span></div>";
+      return '<div class="itemrow"><span class="mark '+s.c+'">✓</span><span style="flex:1"><span style="display:block;font-weight:500">'+esc(i.desc)+'</span><span style="font-size:.78rem;color:'+s.col+'">'+esc(s.l)+(i.shortReason?" · "+esc(i.shortReason):"")+'</span></span><span class="mono" style="font-size:.75rem;color:var(--ink-3)">'+esc(i.sku)+'</span><span class="mono" style="width:2rem;text-align:right">'+i.qty+'</span><span class="mono" style="width:2rem;text-align:right;color:var(--ink-2)">'+(i.picked==null?"—":i.picked)+'</span><span class="mono" style="width:2rem;text-align:right;color:var(--ink-2)">'+(i.delivered==null?"—":i.delivered)+"</span></div>";
     }).join("")+
-    '<div class="itemrow" style="border:0;padding-top:2px"><span style="flex:1"></span><span class="eyebrow" style="width:2rem;text-align:right;font-size:.52rem">Ord</span><span class="eyebrow" style="width:2rem;text-align:right;font-size:.52rem">Pick</span><span class="eyebrow" style="width:2rem;text-align:right;font-size:.52rem">Del</span></div></div></div>';
-  if(o.signedAt)h+='<div class="card" data-why="sign"><div class="ch">Proof of delivery</div><div style="padding:14px;display:flex;gap:16px;align-items:center;flex-wrap:wrap"><div style="border:1px solid var(--rule);border-radius:8px;padding:8px;background:var(--surface)">'+sig(o)+'</div><div><div style="font-weight:600">'+esc(o.signedBy)+'</div><div class="mono" style="font-size:.72rem;color:var(--ink-3)">'+fmtDT(o.signedAt)+'</div><div class="muted" style="font-size:.76rem;margin-top:3px">'+o.photos+" proof photo"+(o.photos===1?"":"s")+" on file</div></div></div></div>";
+    '<div class="itemrow" style="border:0;padding-top:2px"><span style="flex:1"></span><span class="eyebrow" style="width:2rem;text-align:right;font-size:.66rem">Ord</span><span class="eyebrow" style="width:2rem;text-align:right;font-size:.66rem">Pick</span><span class="eyebrow" style="width:2rem;text-align:right;font-size:.66rem">Del</span></div></div></div>';
+  if(o.signedAt)h+='<div class="card" data-why="sign"><div class="ch">Proof of delivery</div><div style="padding:14px;display:flex;gap:16px;align-items:center;flex-wrap:wrap"><div style="border:1px solid var(--rule);border-radius:8px;padding:8px;background:var(--surface)">'+sig(o)+'</div><div><div style="font-weight:600">'+esc(o.signedBy)+'</div><div class="mono" style="font-size:.78rem;color:var(--ink-3)">'+fmtDT(o.signedAt)+'</div><div class="muted" style="font-size:.82rem;margin-top:3px">'+o.photos+" proof photo"+(o.photos===1?"":"s")+" on file</div></div></div></div>";
   h+='<div class="card" data-why="time"><div class="ch">'+(T?"Where the time went":"How long it took")+'</div><div style="padding:14px">';
-  if(!has.length)h+='<p class="muted" style="font-size:.85rem">Nothing to measure yet.</p>';
+  if(!has.length)h+='<p class="muted" style="font-size:.91rem">Nothing to measure yet.</p>';
   else{
-    h+='<p style="font-size:.9rem;margin-bottom:11px">'+(d.total!=null
+    h+='<p style="font-size:.95rem;margin-bottom:11px">'+(d.total!=null
       ? "<strong>"+dur(d.total)+"</strong> from raised to closed"+(o.deliveredAt?(o.deliveredAt<=o.dueAt?'<span style="color:var(--ok)">, inside the window</span>':'<span style="color:var(--bad)">, past the window</span>'):"")+(T&&slow?". Longest stretch: "+slow[1].toLowerCase()+".":".")
       : (T&&slow?"Still running. Longest so far: "+slow[1].toLowerCase()+".":"Still in progress."))+"</p>";
     if(T)h+=has.map(s=>{
       const hot=slow&&slow[0]===s[0];
-      return '<div style="margin-bottom:10px"><div style="display:flex;justify-content:space-between;font-size:.83rem'+(hot?";font-weight:600":"")+'"><span>'+esc(s[1])+'</span><span class="mono">'+dur(d[s[0]])+'</span></div><div class="bar" style="margin-top:4px"><i class="'+(hot?"hot":"")+'" style="width:'+Math.max(3,d[s[0]]/mx*100)+'%"></i></div><div style="font-size:.7rem;color:var(--ink-3);margin-top:2px">'+esc(s[2])+"</div></div>";
+      return '<div style="margin-bottom:10px"><div style="display:flex;justify-content:space-between;font-size:.89rem'+(hot?";font-weight:600":"")+'"><span>'+esc(s[1])+'</span><span class="mono">'+dur(d[s[0]])+'</span></div><div class="bar" style="margin-top:4px"><i class="'+(hot?"hot":"")+'" style="width:'+Math.max(3,d[s[0]]/mx*100)+'%"></i></div><div style="font-size:.76rem;color:var(--ink-3);margin-top:2px">'+esc(s[2])+"</div></div>";
     }).join("");
   }
   h+="</div></div>";
@@ -847,25 +827,7 @@ document.getElementById("resetBtn").onclick=function(){seed();render();};
 document.getElementById("guideNext").onclick=function(){gotoStep(S.step+1);};
 document.getElementById("guideReset").onclick=function(){seed();gotoStep(0);};
 
-const DECS=[
-  {k:"Scope",t:"Assignment stays manual",c:"No auto-assign, no scheduler. A dispatcher picks every driver.",p:"The rules a dispatcher actually uses have never been written down. Encoding a guess in week one buys a plausible algorithm and a year of unlearning it. Instead each order carries a stage flag worked out on read, and a human decides."},
-  {k:"Data",t:"The event log is the record",c:"Every state change appends actor, role and time.",p:"The log wins any disagreement with the order table, and every timing figure in the product is the gap between two of its rows. A new metric becomes a query rather than a migration and a backfill."},
-  {k:"Reversal",t:"The client could read our roster",c:"A log that looked harmless per order was a staffing disclosure in aggregate.",p:"One order tells a client their parts moved. A searchable log of every order tells them how many dispatchers we run, which of them works their account and which drivers we use. I had even written a comment arguing the opposite."},
-  {k:"Reversal",t:"A panel with no rule is just the list",c:"I calmed an alarming panel until it had no reason to exist.",p:"Toning it down made it a shorter copy of the list directly above the list, with no way to tell why those three orders and not the other three. It needed a rule you can say out loud: things that have actually gone wrong for you.",was:"6 deliveries at risk of being late",now:"Nothing needs your attention. All 6 running to plan."},
-  {k:"Reversal",t:"Urgency expires",c:"A finished job carrying a red badge trains people to stop seeing red.",p:"Closed orders kept the badge, the stripe and the tint, so completed work read as a pile of emergencies. Dropping it entirely lost a fact people wanted, so it now rides quietly on the second line.",was:"URGENT on a job closed two days ago",now:"Was urgent"},
-  {k:"Ordering",t:"Signature before checkpoint",c:"Which of two writes goes first is a product decision.",p:"A delivery that needs re-tapping is an annoyance. A delivery filed as signed for when the signature never saved is a hole in exactly the evidence the feature exists to produce, and nobody finds out until it is needed."}
-];
-document.getElementById("deck").innerHTML=DECS.map(d=>
-  '<div class="dcard"><span class="k">'+esc(d.k)+'</span><h3>'+esc(d.t)+'</h3><p class="claim">'+esc(d.c)+"</p><p>"+esc(d.p)+"</p>"+
-  (d.was?'<div class="flip"><span class="was">'+esc(d.was)+'</span><span class="now">'+esc(d.now)+"</span></div>":"")+"</div>").join("");
 
-const OPENS=[
-  ["Drivers have no corporate account, so no real login yet","Identity comes from Google SSO, which covers both companies' office staff and nobody in a van. Drivers need phone and one-time passcode on a path deliberately exempt from SSO. Until then the driver view sits behind a demo switch: fine for a walkthrough, unacceptable with real data."],
-  ["Automating assignment is not just an algorithm","It needs a distributed lock before it can run at all, or two backend replicas offer the same job to two drivers. That is the easy half. The hard half is that nobody has written down the rules a dispatcher uses, and I would rather watch one work for a fortnight than encode a guess."],
-  ["Success metrics are not agreed","The dashboard reports against stage targets I set myself, so every “at risk” figure is measured against a number nobody has signed off. On-time rate and raised-to-on-site are measurable today; cost per delivery needs a cost model that does not exist."],
-  ["The static analysis findings are open","Every deploy runs secret scanning, static analysis and dependency checks. Secrets are clean, which is the one that would matter most. The rest have findings nobody has triaged, and they now block promotion to production."]
-];
-document.getElementById("opens").innerHTML=OPENS.map(o=>"<div><h3>"+esc(o[0])+"</h3><p>"+esc(o[1])+"</p></div>").join("");
 
 seed();render();
 </script>
