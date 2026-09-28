@@ -1,0 +1,873 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Component Fulfilment Portal — Jordan Chang</title>
+<meta name="description" content="A working walkthrough of a shared delivery portal I designed and built for a global lift manufacturer, with the reasoning behind each screen.">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root{
+  --page:#f7f9fb; --surface:#fff; --surface-2:#f2f5f8; --surface-3:#e6ebf1;
+  --ink:#0d1219; --ink-2:#4b5765; --ink-3:#8593a2; --rule:#e2e8ee; --rule-2:#cbd4de;
+  --brand:#d4183d; --brand-2:#a51030; --brand-soft:#fdeef1;
+  --accent:#1d4ed8; --accent-soft:#e8eefc;
+  --ok:#0b7a5a; --ok-soft:#dff4ec; --warn:#a26a00; --warn-soft:#fdf0d8; --bad:#c01f3c; --bad-soft:#fdebee;
+  --sh-1:0 1px 2px rgba(13,18,25,.06);
+  --sh-2:0 2px 4px rgba(13,18,25,.05),0 12px 28px -14px rgba(13,18,25,.28);
+  --sh-3:0 24px 70px -30px rgba(13,18,25,.45),0 4px 10px rgba(13,18,25,.06);
+  --display:"Archivo","Helvetica Neue",Arial,sans-serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--page);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+img{max-width:100%}
+[hidden]{display:none!important}
+.wrap{max-width:78rem;margin:0 auto;padding-inline:20px}
+.narrow{max-width:40rem}
+h1,h2,h3,h4{font-family:var(--display);margin:0;font-weight:600;text-wrap:balance}
+h1{font-size:clamp(2.1rem,5.4vw,3.4rem);line-height:1.02;letter-spacing:-.03em;font-weight:700}
+h2{font-size:clamp(1.5rem,3.4vw,2.05rem);line-height:1.12;letter-spacing:-.022em;font-weight:700}
+h3{font-size:1.02rem;line-height:1.28;letter-spacing:-.008em}
+p{margin:0}
+a{color:var(--accent)}
+.eyebrow{font-family:var(--mono);font-size:.66rem;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3)}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.muted{color:var(--ink-2)}
+
+.hero{background:var(--surface);border-bottom:1px solid var(--rule)}
+.hero .wrap{padding-block:34px 0}
+.tagrow{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:18px}
+.tag{font-family:var(--mono);font-size:.64rem;letter-spacing:.09em;text-transform:uppercase;padding:3px 9px;border-radius:99px;border:1px solid var(--rule-2);color:var(--ink-2);background:var(--surface-2)}
+.tag.hi{border-color:var(--brand);color:var(--brand);background:var(--brand-soft)}
+.hero h1{margin-bottom:14px}
+.hero h1 em{font-style:normal;color:var(--brand)}
+.hero .sub{font-size:1.12rem;color:var(--ink-2);max-width:40rem}
+
+.steps{display:flex;margin:26px 0 0;border:1px solid var(--rule-2);border-radius:10px;overflow:hidden;background:var(--surface-2);box-shadow:var(--sh-1)}
+.steps button{flex:1 1 0;min-width:0;appearance:none;border:0;border-right:1px solid var(--rule);background:transparent;cursor:pointer;padding:11px 12px;text-align:left;font-family:var(--body);position:relative}
+.steps button:last-child{border-right:0}
+.steps button:hover{background:var(--surface)}
+.steps button[aria-current="true"]{background:var(--surface)}
+.steps button[aria-current="true"]::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:var(--brand)}
+.steps .n{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;background:var(--surface-3);color:var(--ink-3);font-family:var(--mono);font-size:.66rem;margin-bottom:5px}
+.steps button[aria-current="true"] .n{background:var(--brand);color:#fff}
+.steps button.done .n{background:var(--ok);color:#fff}
+.steps .l{display:block;font-size:.8rem;font-weight:600;color:var(--ink);line-height:1.2}
+.steps .d{display:block;font-size:.72rem;color:var(--ink-3);line-height:1.25;margin-top:2px}
+@media(max-width:800px){.steps{flex-wrap:wrap}.steps button{flex:1 1 45%;border-bottom:1px solid var(--rule)}}
+@media(max-width:460px){.steps button{flex:1 1 100%}.steps .d{display:none}}
+.guide{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:14px;padding:12px 16px;border-radius:10px;background:var(--accent-soft);border:1px solid var(--accent)}
+.guide p{font-size:.9rem;color:var(--ink);flex:1 1 18rem;min-width:0}
+.guide p b{color:var(--accent)}
+
+.appwrap{padding-block:22px 40px}
+.app{border-radius:12px;overflow:hidden;background:var(--surface);box-shadow:var(--sh-3);border:1px solid var(--rule-2)}
+.chrome{display:flex;align-items:center;gap:8px;padding:9px 14px;background:var(--surface-3);border-bottom:1px solid var(--rule)}
+.dot{width:10px;height:10px;border-radius:50%;background:var(--rule-2)}
+.urlbar{flex:1;max-width:30rem;margin:0 auto;background:var(--surface);border:1px solid var(--rule-2);border-radius:99px;padding:3px 12px;font-family:var(--mono);font-size:.68rem;color:var(--ink-3);text-align:center;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.topbar{display:flex;align-items:center;gap:12px;padding:12px 18px;border-bottom:1px solid var(--rule);background:var(--surface);flex-wrap:wrap}
+.logo{font-family:var(--display);font-weight:800;font-size:.95rem;letter-spacing:-.02em}
+.logo i{font-style:normal;color:var(--brand)}
+.logo span{display:block;font-family:var(--mono);font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);font-weight:400}
+.topbar .spacer{flex:1}
+.userchip{display:flex;align-items:center;gap:9px;padding:5px 11px 5px 6px;border:1px solid var(--rule);border-radius:99px;background:var(--surface-2)}
+.av{width:28px;height:28px;border-radius:50%;background:var(--brand);color:#fff;display:grid;place-items:center;font-family:var(--mono);font-size:.64rem;font-weight:500}
+.userchip .nm{font-size:.78rem;font-weight:600;line-height:1.15;display:block}
+.userchip .rl{font-size:.68rem;color:var(--ink-3);line-height:1.15;display:block}
+
+/* Who you are. The biggest control on the page, because switching it is the
+   demo. Grouped by company so the two sides of the account read as two sides. */
+.roleswitch{display:flex;flex-wrap:wrap;align-items:center;gap:14px;padding:12px 18px;background:var(--surface-2);border-bottom:1px solid var(--rule)}
+.rsl{font-family:var(--mono);font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-3)}
+.rgroup{display:flex;align-items:stretch;border:1px solid var(--rule-2);border-radius:9px;overflow:hidden;background:var(--surface);box-shadow:var(--sh-1)}
+.rgroup .org{display:flex;align-items:center;padding:0 10px;font-family:var(--mono);font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:#fff;white-space:nowrap}
+.rgroup.client .org{background:var(--accent)}
+.rgroup.njv .org{background:var(--brand)}
+.rgroup button{appearance:none;border:0;border-left:1px solid var(--rule);background:transparent;cursor:pointer;padding:8px 13px;font-family:var(--body);font-size:.79rem;color:var(--ink-2);white-space:nowrap}
+.rgroup button:hover{background:var(--surface-2);color:var(--ink)}
+.rgroup button[aria-current="true"]{color:var(--ink);font-weight:600;background:var(--surface-2);box-shadow:inset 0 -3px 0 var(--ink)}
+.rgroup button:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+
+/* Which screen. An ordinary tab strip, where tabs live. */
+.tabstrip{display:flex;gap:2px;padding:0 18px;border-bottom:1px solid var(--rule);background:var(--surface);overflow-x:auto}
+.tabstrip button{appearance:none;border:0;background:transparent;cursor:pointer;padding:11px 12px;font-family:var(--body);font-size:.83rem;color:var(--ink-2);border-bottom:2px solid transparent;display:flex;align-items:center;gap:7px;white-space:nowrap}
+.tabstrip button:hover{color:var(--ink)}
+.tabstrip button[aria-current="true"]{color:var(--ink);font-weight:600;border-bottom-color:var(--brand)}
+.tabstrip button:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.tabstrip .ic{width:15px;height:15px;opacity:.75}
+.tabstrip .cnt{font-family:var(--mono);font-size:.68rem;color:var(--ink-3);background:var(--surface-3);border-radius:99px;padding:0 6px}
+.main{padding:18px;background:var(--page);min-width:0;min-height:520px}
+
+/* The guided step points at the control it is asking you to press. Being told
+   what to do and not being shown where is most of what "hard to navigate" is. */
+@keyframes tug{0%,100%{box-shadow:0 0 0 0 rgba(29,78,216,.55)}50%{box-shadow:0 0 0 7px rgba(29,78,216,0)}}
+.tug{animation:tug 1.9s ease-out infinite;border-radius:8px}
+@media(prefers-reduced-motion:reduce){.tug{animation:none;outline:2px solid var(--accent);outline-offset:2px}}
+
+/* Detail: two columns where there is room, so an order is one screen and not a
+   scroll. */
+.detail{display:grid;gap:12px;grid-template-columns:1fr}
+@media(min-width:900px){.detail{grid-template-columns:1fr 1fr;align-items:start}
+  .detail>.wide{grid-column:1/-1}}
+
+.hd{display:flex;align-items:flex-end;gap:12px;margin-bottom:14px;flex-wrap:wrap}
+.hd h3{font-size:1.2rem;letter-spacing:-.018em}
+.hd .sub{font-size:.81rem;color:var(--ink-3);display:block}
+.hd .act{margin-left:auto;display:flex;gap:7px;align-items:center}
+.card{background:var(--surface);border:1px solid var(--rule);border-radius:9px;box-shadow:var(--sh-1);overflow:hidden}
+.card+.card{margin-top:12px}
+.detail .card+.card{margin-top:0}
+.ch{padding:10px 14px;border-bottom:1px solid var(--rule);display:flex;align-items:center;gap:9px;font-size:.78rem;font-weight:600}
+.ch .r{margin-left:auto;font-weight:400;color:var(--ink-3);font-size:.75rem}
+.row{display:flex;align-items:center;gap:11px;padding:11px 14px;border-bottom:1px solid var(--rule);font-size:.84rem}
+.row:last-child{border-bottom:0}
+.row.click{cursor:pointer}
+.row.click:hover{background:var(--surface-2)}
+.ref{font-family:var(--mono);font-size:.75rem;white-space:nowrap;font-weight:500}
+.site{color:var(--ink);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1 1 auto;font-weight:500}
+.right{margin-left:auto;display:flex;align-items:center;gap:12px;white-space:nowrap}
+.state{font-size:.79rem;color:var(--ink-2)}
+.when{font-family:var(--mono);font-size:.72rem;color:var(--ink-3)}
+.stripe{width:3px;align-self:stretch;border-radius:2px;background:transparent;flex:0 0 auto;margin:-11px 0}
+.stripe.bad{background:var(--bad)}.stripe.ok{background:var(--ok)}.stripe.warn{background:var(--warn)}
+.pill{display:inline-flex;align-items:center;gap:4px;font-size:.67rem;font-weight:600;padding:2px 8px;border-radius:99px;white-space:nowrap}
+.pill.urgent{background:var(--brand);color:#fff}
+.pill.was{background:transparent;color:var(--ink-3);border:1px solid var(--rule-2);font-weight:500}
+.pill.ok{background:var(--ok-soft);color:var(--ok)}
+.pill.n{background:var(--surface-3);color:var(--ink-2)}
+.rail{display:flex;align-items:center;flex:0 0 auto}
+.rail .node{width:12px;height:12px;border-radius:50%;background:var(--surface-3);border:2px solid var(--rule-2);flex:0 0 auto}
+.rail .node.on{background:var(--ok);border-color:var(--ok)}
+.rail .node.now{background:var(--surface);border-color:var(--brand);box-shadow:0 0 0 3px var(--brand-soft)}
+.rail .link{height:2px;width:20px;background:var(--rule-2);flex:0 0 auto}
+.rail .link.on{background:var(--ok)}
+@media(max-width:620px){.rail .link{width:10px}}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:10px;margin-bottom:12px}
+.stat{background:var(--surface);border:1px solid var(--rule);border-radius:9px;padding:12px 14px;box-shadow:var(--sh-1)}
+.stat dt{font-size:.7rem;color:var(--ink-3)}
+.stat dd{margin:3px 0 0;font-family:var(--display);font-size:1.8rem;font-weight:700;letter-spacing:-.03em;font-variant-numeric:tabular-nums;line-height:1}
+.stat .fine{font-size:.68rem;color:var(--ink-3);margin-top:4px}
+.stat.good dd{color:var(--ok)}.stat.bad dd{color:var(--bad)}
+.btn{appearance:none;font-family:var(--body);font-size:.81rem;font-weight:600;padding:8px 14px;border-radius:7px;border:1px solid var(--rule-2);background:var(--surface);color:var(--ink);cursor:pointer;box-shadow:var(--sh-1)}
+.btn:hover{background:var(--surface-2)}
+.btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.btn.primary{background:var(--brand);border-color:var(--brand);color:#fff}
+.btn.primary:hover{background:var(--brand-2);border-color:var(--brand-2)}
+.btn.sm{font-size:.74rem;padding:5px 10px}
+.btn.ghost{background:transparent;box-shadow:none;border-color:transparent;color:var(--ink-2)}
+.field{display:grid;gap:5px;margin-bottom:12px}
+.field label{font-size:.75rem;font-weight:600;color:var(--ink-2)}
+.field input,.field select{font-family:var(--body);font-size:.85rem;padding:8px 10px;border:1px solid var(--rule-2);border-radius:7px;background:var(--surface);color:var(--ink);width:100%}
+.field input:focus,.field select:focus{outline:2px solid var(--accent);outline-offset:-1px}
+.g2{display:grid;gap:12px;grid-template-columns:1fr 1fr}
+@media(max-width:620px){.g2{grid-template-columns:1fr}}
+.pri{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.pri button{text-align:left;padding:10px 12px;border:1px solid var(--rule-2);border-radius:8px;background:var(--surface);cursor:pointer;font-family:var(--body)}
+.pri button[aria-pressed="true"]{border-color:var(--brand);box-shadow:inset 0 0 0 1px var(--brand);background:var(--brand-soft)}
+.pri b{display:block;font-size:.84rem}
+.pri span{font-size:.72rem;color:var(--ink-3)}
+.chartbox{background:var(--surface);border:1px solid var(--rule);border-radius:9px;padding:14px;box-shadow:var(--sh-1)}
+.chartbox h4{font-size:.82rem}
+.chartbox .cap{font-size:.71rem;color:var(--ink-3);margin-bottom:10px}
+.device{width:308px;max-width:100%;margin:0 auto;border:9px solid #1d232c;border-radius:32px;background:#1d232c;box-shadow:var(--sh-2)}
+.device .nub{height:18px;display:grid;place-items:center}
+.device .nub i{display:block;width:72px;height:4px;border-radius:99px;background:rgba(255,255,255,.3)}
+.device .scr{background:var(--page);border-radius:24px;overflow:hidden;min-height:400px}
+.dtop{padding:11px 14px;background:var(--brand);color:#fff}
+.dtop .r1{font-family:var(--mono);font-size:.65rem;opacity:.9}
+.dtop .r2{font-weight:600;font-size:.92rem;line-height:1.2;margin-top:1px}
+.dbody{padding:12px 14px}
+.step{display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-bottom:1px solid var(--rule);font-size:.83rem}
+.step:last-of-type{border-bottom:0}
+.tick{width:19px;height:19px;border-radius:50%;flex:0 0 auto;display:grid;place-items:center;font-family:var(--mono);font-size:.62rem;background:var(--surface-3);color:var(--ink-3)}
+.tick.done{background:var(--ok);color:#fff}
+.tick.now{background:var(--brand);color:#fff}
+canvas.sig{width:100%;height:112px;border:1px dashed var(--rule-2);border-radius:8px;background:var(--surface);touch-action:none;display:block}
+.itemrow{display:flex;align-items:center;gap:9px;padding:8px 0;border-bottom:1px solid var(--rule);font-size:.82rem}
+.itemrow:last-child{border-bottom:0}
+.itemrow input[type=number]{width:58px;padding:5px 7px;font-family:var(--mono);border:1px solid var(--rule-2);border-radius:6px;background:var(--surface);color:var(--ink)}
+.mark{width:19px;height:19px;border-radius:50%;display:grid;place-items:center;font-size:.6rem;flex:0 0 auto;border:2px dashed var(--rule-2);color:transparent}
+.mark.ok{background:var(--ok);border:0;color:#fff}
+.mark.part{background:var(--surface);border:2px solid var(--accent);color:var(--accent)}
+.mark.short{background:var(--warn-soft);border:1px solid var(--warn);color:var(--warn)}
+.note{border-radius:8px;padding:10px 13px;font-size:.82rem;margin-bottom:12px;border:1px solid transparent}
+.note.ok{background:var(--ok-soft);color:var(--ok);border-color:var(--ok)}
+.note.info{background:var(--accent-soft);color:var(--accent);border-color:var(--accent)}
+.empty{padding:34px 14px;text-align:center;color:var(--ink-3);font-size:.85rem}
+.tl .e{display:grid;grid-template-columns:auto 1fr;gap:11px;padding:8px 0;border-bottom:1px solid var(--rule);font-size:.81rem}
+.tl .e:last-child{border-bottom:0}
+.tl .t{font-family:var(--mono);font-size:.71rem;color:var(--ink-3);white-space:nowrap}
+.tl .w{font-size:.7rem;color:var(--ink-3)}
+.bar{height:7px;border-radius:99px;background:var(--surface-3);overflow:hidden}
+.bar i{display:block;height:100%;border-radius:99px;background:var(--ink-3)}
+.bar i.hot{background:var(--brand)}
+[data-why]{position:relative}
+body.notes [data-why]{outline:1.5px dashed var(--accent);outline-offset:3px;border-radius:5px}
+.pin{position:absolute;top:-10px;right:-10px;z-index:6;width:21px;height:21px;border-radius:50%;background:var(--accent);color:#fff;font-family:var(--mono);font-size:.63rem;display:grid;place-items:center;border:2px solid var(--surface);cursor:pointer;padding:0;box-shadow:var(--sh-1)}
+.pin:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.notepanel{position:fixed;inset:auto 0 0 0;z-index:60;background:var(--surface);border-top:3px solid var(--accent);box-shadow:0 -14px 50px -22px rgba(0,0,0,.6);padding:18px 20px calc(18px + env(safe-area-inset-bottom,0px));max-height:58vh;overflow:auto}
+.notepanel .in{max-width:44rem;margin:0 auto;display:grid;gap:8px}
+.notepanel h4{font-family:var(--display);font-size:1.08rem}
+.notepanel p{font-size:.92rem;color:var(--ink-2)}
+.notepanel .x{position:absolute;top:12px;right:16px;background:transparent;border:0;font-size:1.5rem;color:var(--ink-3);cursor:pointer;line-height:1}
+.switch{appearance:none;width:40px;height:22px;border-radius:99px;background:var(--rule-2);position:relative;cursor:pointer;border:0;flex:0 0 auto}
+.switch[aria-pressed="true"]{background:var(--accent)}
+.switch::after{content:"";position:absolute;top:2px;left:2px;width:18px;height:18px;border-radius:50%;background:#fff;transition:left .15s ease}
+.switch[aria-pressed="true"]::after{left:20px}
+section{border-top:1px solid var(--rule)}
+section>.wrap{padding-block:52px}
+.sec-head{display:grid;gap:11px;margin-bottom:28px}
+.deck{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(272px,1fr))}
+.dcard{background:var(--surface);border:1px solid var(--rule);border-radius:11px;padding:18px;box-shadow:var(--sh-1);display:grid;gap:9px;align-content:start}
+.dcard .k{font-family:var(--mono);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--brand)}
+.dcard h3{font-size:1rem}
+.dcard p{font-size:.88rem;color:var(--ink-2)}
+.dcard .claim{color:var(--ink);font-weight:500}
+.dcard .flip{border-top:1px solid var(--rule);padding-top:10px;display:grid;gap:5px}
+.dcard .was{font-size:.79rem;color:var(--ink-3);text-decoration:line-through;text-decoration-color:var(--rule-2)}
+.dcard .now{font-size:.85rem;color:var(--ink);font-weight:500}
+.openlist{border-top:1px solid var(--rule)}
+.openlist>div{padding:16px 0;border-bottom:1px solid var(--rule);display:grid;gap:4px}
+.openlist p{font-size:.89rem;color:var(--ink-2)}
+footer .wrap{padding-block:30px 48px;display:grid;gap:7px}
+footer p{font-size:.82rem;color:var(--ink-3)}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="tagrow">
+      <span class="tag hi">Case study</span><span class="tag">Jordan Chang</span>
+      <span class="tag">Technical Programme Manager</span><span class="tag">Logistics</span>
+    </div>
+    <h1>Two companies,<br>one <em>delivery record</em>.</h1>
+    <p class="sub">A shared fulfilment portal for a global lift manufacturer. Their engineer needs a part on site today; our driver takes it there. Five roles, one record, nobody arguing from memory.</p>
+    <div class="steps" id="steps"></div>
+    <div class="guide">
+      <p id="guideText"></p>
+      <button class="btn primary" id="guideNext">Next step &rarr;</button>
+      <button class="btn ghost" id="guideReset">Start over</button>
+    </div>
+  </div>
+  <div class="wrap appwrap">
+    <div class="app">
+      <div class="chrome">
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="urlbar" id="urlbar">fulfilment.example.com</span>
+      </div>
+      <div class="topbar">
+        <span class="logo">Component <i>Fulfilment</i><span>Lift components · Klang Valley</span></span>
+        <span class="spacer"></span>
+        <button class="switch" id="noteToggle" aria-pressed="false" aria-label="Show my reasoning"></button>
+        <span style="font-size:.76rem;color:var(--ink-2)">Show my reasoning</span>
+        <span class="userchip"><span class="av" id="av"></span><span><span class="nm" id="nm"></span><span class="rl" id="rl"></span></span></span>
+      </div>
+      <div class="roleswitch" id="roleswitch"></div>
+      <div class="tabstrip" id="tabstrip"></div>
+      <div class="main" id="main"></div>
+    </div>
+    <p class="muted" style="font-size:.78rem;margin-top:10px;text-align:center">Live reconstruction. Illustrative data, nothing leaves your browser. <button class="btn sm ghost" id="resetBtn">Reset the data</button></p>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head narrow">
+      <span class="eyebrow">Decisions</span>
+      <h2>Six calls I would defend in a review</h2>
+      <p class="muted">Half are reversals. I shipped the obvious thing, watched it fail against a real reader, and rebuilt it.</p>
+    </div>
+    <div class="deck" id="deck"></div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap narrow">
+    <div class="sec-head">
+      <span class="eyebrow">Not done</span>
+      <h2>What I would want asked in an interview</h2>
+      <p class="muted">A case study that only lists wins is a sales page.</p>
+    </div>
+    <div class="openlist" id="opens"></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap narrow">
+    <p>Written up by Jordan Chang as a record of work delivered at Ninja Van. The client is anonymised. This page is a reconstruction with illustrative data, not a live system and not client records.</p>
+  </div>
+</footer>
+
+<div class="notepanel" id="notepanel" hidden>
+  <button class="x" id="noteClose" aria-label="Close">&times;</button>
+  <div class="in" id="noteBody"></div>
+</div>
+
+<script>
+"use strict";
+const MIN=60000, now=()=>Date.now();
+const fmtT=m=>new Date(m).toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit",hour12:false});
+const fmtD=m=>new Date(m).toLocaleDateString("en-GB",{day:"2-digit",month:"short"});
+const fmtDT=m=>fmtD(m)+", "+fmtT(m);
+const dur=m=>m==null?"—":(m<60?Math.round(m)+"m":Math.floor(m/60)+"h "+Math.round(m%60)+"m");
+const esc=s=>String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const ini=n=>n.split(" ").map(w=>w[0]).slice(0,2).join("").toUpperCase();
+const SVG={
+  list:'<svg class="ic" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 4h8M5 8h8M5 12h8M2.5 4h.01M2.5 8h.01M2.5 12h.01"/></svg>',
+  plus:'<svg class="ic" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 3v10M3 8h10"/></svg>',
+  chart:'<svg class="ic" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 13h12M4.5 13V8M8 13V4M11.5 13V6.5"/></svg>',
+  board:'<svg class="ic" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2.5" width="12" height="11" rx="1.5"/><path d="M2 6h12M6 6v7.5"/></svg>',
+  log:'<svg class="ic" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="5.5"/><path d="M8 4.5v3.8l2.4 1.4"/></svg>',
+  van:'<svg class="ic" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1.5 11V4.5h8V11M9.5 6.5h2.6l2.4 2.6V11"/><circle cx="4.5" cy="11.5" r="1.4"/><circle cx="11.5" cy="11.5" r="1.4"/></svg>'
+};
+const ROLES=[
+  {key:"store",org:"Client",label:"Store keeper",name:"Halim Yusof",title:"Store Keeper",email:"store@client.example"},
+  {key:"tech",org:"Client",label:"Technician",name:"Aisyah Rahman",title:"Field Technician",email:"tech@client.example"},
+  {key:"clientadm",org:"Client",label:"Administrator",name:"Priya Nair",title:"Service Operations Lead",email:"ops@client.example"},
+  {key:"tower",org:"Ninja Van",label:"Control tower",name:"Faizal Hassan",title:"Control Tower Executive",email:"faizal@ninjavan.co"},
+  {key:"driver",org:"Ninja Van",label:"Driver",name:"Arun Maniam",title:"DRV-005 · Van",email:null}
+];
+const roleOf=k=>ROLES.find(r=>r.key===k);
+const DEPOTS=["Client Parts Depot, Shah Alam","Client Service Centre, Petaling Jaya"];
+const SITES=["Menara KLCC Service Core","KL Sentral Office Tower","Pavilion Damansara Heights","Sunway Pyramid","Setia City Mall","IOI City Mall, Putrajaya"];
+const DRIVERS=[{code:"DRV-001",name:"Zulkifli Osman",v:"Van · Petaling Jaya"},{code:"DRV-002",name:"Ramesh Subra",v:"Lorry 1t · Shah Alam"},{code:"DRV-004",name:"Nurul Izzah",v:"Van · Klang"},{code:"DRV-005",name:"Arun Maniam",v:"Van · Kuala Lumpur"}];
+const PARTS=[["LDP-940","Landing door panel"],["GT-330","Governor tension weight"],["DOA-112","Door operator assembly"],["RLR-208","Guide roller set"],["CTB-501","Controller board"],["SFT-077","Safety gear trip lever"]];
+const TARGETS={toOffer:30,toAccept:20,toPickup:90,inTransit:120,toClose:30};
+const FLOW=["PENDING","OFFERED","ACCEPTED","PICKED_UP","DELIVERED","COMPLETED"];
+const CLIENT_STAGE={PENDING:"Arranging a driver",OFFERED:"Arranging a driver",ACCEPTED:"Driver on the way to collect",PICKED_UP:"On the way to your site",DELIVERED:"Delivered, closing off",COMPLETED:"Done"};
+const TOWER_STAGE={PENDING:"No driver yet",OFFERED:"Driver hasn't replied",ACCEPTED:"Not collected yet",PICKED_UP:"In transit",DELIVERED:"Awaiting close",COMPLETED:"Closed"};
+const TOWER_ACT={PENDING:"Assign one",OFFERED:"Chase or reassign",ACCEPTED:"Watch it",PICKED_UP:"Watch it",DELIVERED:"Driver to close"};
+const STATUS_LABEL={PENDING:"Awaiting assignment",OFFERED:"Offered to driver",ACCEPTED:"Driver accepted",PICKED_UP:"In transit",DELIVERED:"Awaiting sign-off",COMPLETED:"Completed"};
+
+let DB,S;
+function ev(o,t,who,role,note,at){o.events.push({t:t,who:who,role:role,note:note,at:at||now()});}
+function seed(){
+  const T=now();let n=9000;
+  const it=(i,q)=>({sku:PARTS[i][0],desc:PARTS[i][1],qty:q,picked:null,delivered:null,shortReason:null});
+  const mk=x=>{
+    const c=T-x.age*MIN;
+    const o={id:++n,ref:"REQ-"+new Date(c).toISOString().slice(0,10).replace(/-/g,"")+"-"+n,
+      status:x.status,priority:x.pri||"NORMAL",pickup:x.pickup||DEPOTS[0],deliver:x.deliver,
+      technician:x.tech||"Aisyah Rahman",raisedBy:"store@client.example",raisedByName:"Halim Yusof",
+      createdAt:c,dueAt:c+(x.due||210)*MIN,driver:x.driver||null,items:x.items,events:[],
+      offeredAt:null,acceptedAt:null,pickedAt:null,deliveredAt:null,closedAt:null,
+      signedBy:null,signedAt:null,signature:null,photos:0};
+    const i=FLOW.indexOf(x.status),a=x.a||14,b=a+(x.b||6),cc=b+(x.c||52),dd=cc+(x.d||47),ee=dd+(x.e||9);
+    if(i>=1)o.offeredAt=c+a*MIN;
+    if(i>=2)o.acceptedAt=c+b*MIN;
+    if(i>=3)o.pickedAt=c+cc*MIN;
+    if(i>=4)o.deliveredAt=c+dd*MIN;
+    if(i>=5)o.closedAt=c+ee*MIN;
+    if(i>=3)o.items.forEach(t=>{t.picked=t.qty;});
+    if(i>=4){o.items.forEach(t=>{t.delivered=t.picked;});o.photos=2;o.signedBy=o.technician;o.signedAt=o.deliveredAt;o.signature="seeded";}
+    else if(i>=3)o.photos=1;
+    if(x.short&&o.items[0]){o.items[0].picked=o.items[0].qty-1;o.items[0].shortReason="Not enough on the shelf";
+      if(o.items[0].delivered!=null)o.items[0].delivered=o.items[0].picked;}
+    return o;
+  };
+  DB={orders:[
+    mk({status:"PENDING",pri:"URGENT",deliver:SITES[4],age:46,due:170,items:[it(0,3)]}),
+    mk({status:"OFFERED",deliver:SITES[1],age:38,due:220,driver:DRIVERS[3],items:[it(4,1),it(3,2)]}),
+    mk({status:"ACCEPTED",deliver:SITES[3],age:96,due:150,driver:DRIVERS[1],items:[it(2,1)],pickup:DEPOTS[1]}),
+    mk({status:"PICKED_UP",deliver:SITES[0],age:140,due:200,driver:DRIVERS[3],items:[it(1,2),it(5,1)]}),
+    mk({status:"COMPLETED",deliver:SITES[2],age:1580,due:210,driver:DRIVERS[0],items:[it(3,4)],short:true}),
+    mk({status:"COMPLETED",pri:"URGENT",deliver:SITES[5],age:2900,due:180,driver:DRIVERS[2],items:[it(0,1),it(4,1)]}),
+    mk({status:"COMPLETED",deliver:SITES[1],age:4400,due:200,driver:DRIVERS[3],items:[it(2,2)]}),
+    mk({status:"COMPLETED",deliver:SITES[3],age:5900,due:190,driver:DRIVERS[1],items:[it(5,1)],d:160})
+  ],seq:n};
+  DB.orders.forEach(o=>{
+    ev(o,"CREATED",o.raisedByName,"CLIENT","Order raised",o.createdAt);
+    if(o.offeredAt)ev(o,"ASSIGNED","Faizal Hassan","NJV","Offered to "+o.driver.name+" ("+o.driver.code+")",o.offeredAt);
+    if(o.acceptedAt)ev(o,"ACCEPTED",o.driver.name,"DRIVER","Driver accepted the job",o.acceptedAt);
+    if(o.pickedAt)ev(o,"CP2",o.driver.name,"DRIVER","Collected from the store",o.pickedAt);
+    if(o.deliveredAt)ev(o,"CP3",o.driver.name,"DRIVER","Delivered to site",o.deliveredAt);
+    if(o.signedAt)ev(o,"SIGNED",o.driver.name,"DRIVER","Signed by "+o.signedBy,o.signedAt);
+    if(o.closedAt)ev(o,"CP4",o.driver.name,"DRIVER","Job closed",o.closedAt);
+  });
+  // Open on the screen step one is talking about. Starting on the requests
+  // list while the guide says "choose a part and Submit" is the mismatch that
+  // makes a walkthrough feel broken on the very first glance.
+  S={role:STEPS[0].role,tab:STEPS[0].tab,open:null,draft:null,flash:null,step:0};
+}
+const closed=o=>o.status==="COMPLETED";
+const late=o=>!closed(o)&&now()>o.dueAt;
+const mn=(a,b)=>(a==null||b==null)?null:(b-a)/MIN;
+const durs=o=>({toOffer:mn(o.createdAt,o.offeredAt),toAccept:mn(o.offeredAt,o.acceptedAt),toPickup:mn(o.acceptedAt,o.pickedAt),inTransit:mn(o.pickedAt,o.deliveredAt),toClose:mn(o.deliveredAt,o.closedAt),total:mn(o.createdAt,o.closedAt)});
+function sla(o){
+  if(closed(o))return null;
+  const m={PENDING:["toOffer",o.createdAt],OFFERED:["toAccept",o.offeredAt],ACCEPTED:["toPickup",o.acceptedAt],PICKED_UP:["inTransit",o.pickedAt],DELIVERED:["toClose",o.deliveredAt]}[o.status];
+  if(!m||!m[1])return null;
+  const inS=(now()-m[1])/MIN,tg=TARGETS[m[0]];
+  return {inS:inS,tg:tg,level:inS>tg?"BREACH":inS>tg*0.7?"WARN":"OK"};
+}
+function mine(o,r){
+  if(r==="tech")return o.technician==="Aisyah Rahman";
+  if(r==="store")return o.raisedBy==="store@client.example";
+  if(r==="driver")return !!o.driver&&o.driver.code==="DRV-005"&&!closed(o);
+  return true;
+}
+let flashT;
+function flash(m){S.flash=m;clearTimeout(flashT);flashT=setTimeout(()=>{S.flash=null;render();},4500);}
+function createOrder(d){
+  const t=now(),me=roleOf(S.role);
+  const o={id:++DB.seq,ref:"REQ-"+new Date(t).toISOString().slice(0,10).replace(/-/g,"")+"-"+DB.seq,
+    status:"PENDING",priority:d.priority,pickup:d.pickup,deliver:d.deliver,technician:d.technician,
+    raisedBy:me.email,raisedByName:me.name,createdAt:t,dueAt:t+d.dueMins*MIN,driver:null,items:d.items,events:[],
+    offeredAt:null,acceptedAt:null,pickedAt:null,deliveredAt:null,closedAt:null,signedBy:null,signedAt:null,signature:null,photos:0};
+  ev(o,"CREATED",me.name,"CLIENT","Order raised on behalf of "+d.technician);
+  DB.orders.unshift(o);
+  flash("Raised "+o.ref+". It is on the control tower board now, unassigned.");
+  S.tab="orders";S.open=o.id;if(S.step===0)S.step=1;render();
+}
+function assign(o,d){o.driver=d;o.status="OFFERED";o.offeredAt=now();ev(o,"ASSIGNED",roleOf("tower").name,"NJV","Offered to "+d.name+" ("+d.code+")");flash("Offered to "+d.name+". It is on their phone now.");if(S.step===1)S.step=2;render();}
+function respond(o,ok){
+  if(ok){o.status="ACCEPTED";o.acceptedAt=now();ev(o,"ACCEPTED",o.driver.name,"DRIVER","Driver accepted the job");}
+  else{o.status="PENDING";o.driver=null;o.offeredAt=null;ev(o,"DECLINED",roleOf("driver").name,"DRIVER","Driver declined: already loaded");}
+  render();
+}
+function cp(o,k,p){
+  const t=now(),d=o.driver;
+  if(k==="CP2"){o.items.forEach((i,x)=>{i.picked=p.qty[x];i.shortReason=p.reason[x]||null;});o.status="PICKED_UP";o.pickedAt=t;o.photos=1;ev(o,"CP2",d.name,"DRIVER","Collected from the store");}
+  if(k==="CP3"){o.items.forEach((i,x)=>{i.delivered=p.qty[x];});o.status="DELIVERED";o.deliveredAt=t;o.photos=2;
+    ev(o,"CP3",d.name,"DRIVER","Delivered to site");
+    o.signature=p.sig;o.signedBy=p.name;o.signedAt=t;ev(o,"SIGNED",d.name,"DRIVER","Signed by "+p.name);
+    if(S.step===2)S.step=3;}
+  if(k==="CP4"){o.status="COMPLETED";o.closedAt=t;ev(o,"CP4",d.name,"DRIVER","Job closed");flash("Job closed. The record is sealed.");if(S.step===3)S.step=4;}
+  render();
+}
+const STEPS=[
+  {l:"Raise",d:"Client side",role:"store",tab:"new",g:"The store keeper holds the parts and makes the call, so they raise most orders. <b>Choose a part, then Submit.</b>"},
+  {l:"Assign",d:"Control tower",role:"tower",tab:"board",g:"It lands unassigned on our board. <b>Open the top order and offer it to a driver</b> — each shows their live load."},
+  {l:"Deliver",d:"Driver phone",role:"driver",tab:"jobs",g:"Now the driver's phone. <b>Accept, check the parts off, then sign at the door</b> with your mouse or finger."},
+  {l:"Close",d:"Driver phone",role:"driver",tab:"jobs",g:"Signed and delivered. <b>Close the job</b> to seal the record."},
+  {l:"The record",d:"Both sides",role:"clientadm",tab:"insights",g:"It is evidence now. <b>Open a completed order</b>, then switch role in the sidebar to see how differently the two sides read it."}
+];
+function gotoStep(i){
+  S.step=Math.max(0,Math.min(STEPS.length-1,i));
+  const st=STEPS[S.step];S.role=st.role;S.tab=st.tab;S.open=null;
+  if(S.step===0)S.draft=null;
+  render();
+  const app=document.querySelector(".app");if(app)app.scrollIntoView({block:"nearest",behavior:"smooth"});
+}
+const NOTES={
+  panel:{h:"This panel has a rule you can say out loud",p:"It used to be the dispatcher's triage queue with the client's name on it: every order whose internal stage clock was amber. From outside that is an arbitrary subset, so it read as a shorter copy of the list below it. It now holds one thing: deliveries that have actually gone wrong for you. Most days it is a single green line, which is a statement worth reading."},
+  words:{h:"Their words, not our stage names",p:"The client's status line used to be five internal stage names with the edges filed off, four of them negations: not assigned, not confirmed, not collected, running late. Every row was something that had not happened. Two of them were not even distinguishable from outside, because they are two of OUR steps. It is one line now, taken from the order's own status."},
+  tower:{h:"Here the alarm is the point",p:"Same rows, opposite job. A dispatcher is the only person who can act on a stalled stage, so they get the internal clock, the stuck reason and the instruction. Deciding who each number is for turned out to be the recurring design problem in this product, not an edge case."},
+  manual:{h:"Assignment is manual, on purpose",p:"No auto-assign and no scheduler. The real reassignment rules live in a dispatcher's head and nobody has written them down; encoding a guess in week one buys a plausible algorithm and a year of unlearning it. Automating it also needs a distributed lock first, or two backend replicas offer the same job to two drivers."},
+  urgent:{h:"Urgency is a request to act, so it expires",p:"A closed job used to keep the red badge, the stripe and the tint, and sat pinned to the top of the closed list, so completed work read as a pile of emergencies. Dropping it entirely lost a fact people wanted. It now rides quietly on the second line: present if you read the card, silent if you scan past it."},
+  redact:{h:"The client cannot read our roster",p:"This log used to show the client every Ninja Van name, every driver name and every driver code. One order tells them their parts moved; a searchable log of every order tells them how we are staffed and which drivers we use. The free-text note is scrubbed too, or “Offered to Arun Maniam (DRV-005)” leaks it from the body after the byline is redacted."},
+  log:{h:"The log is the record, not the order row",p:"Every state change appends actor, role and time, and wins any disagreement with the order table. Every timing figure in the product is the gap between two of these, so a new metric is a query rather than a migration and a backfill."},
+  items:{h:"Per-line state, not three columns of arithmetic",p:"The table gave ordered, picked and delivered and left the reader comparing three numbers a line to work out whether a line was done. Each line now says where it got to in words. The counts stay, because the counts are what you quote when a line actually is short."},
+  sign:{h:"The signature uploads before the checkpoint",p:"Two writes that can fail independently, so the order matters. Signature first: if it fails, the step is not recorded and the driver taps again. A delivery that needs re-tapping is an annoyance; a delivery filed as signed for when the signature never arrived is a hole in exactly the evidence the feature exists to produce."},
+  time:{h:"The answer for them, the working for us",p:"Ninja Van gets the stage-by-stage breakdown with the longest stretch called out, because that is the diagnosis. The client gets the total and whether it landed inside the window they were promised, because that is their delivery. Itemising how long we took to find a driver tells them how we are staffed, and every row is a step they cannot act on."},
+  store:{h:"The store keeper, not the technician",p:"I modelled this account around technicians raising their own orders, which is how it works when the lift is already down and the engineer is next to it. In practice the store keeper raises most of them: they hold the parts and they make the call. That is a different job, so it is a different role rather than a technician with a misleading title."},
+  pri:{h:"Two options, both on screen",p:"Priority was a dropdown with two entries, which hides the choice until you open it and gets Urgent picked by accident. Both are visible now, each saying what it means, and Urgent takes a deliberate click."}
+};
+function decorate(){
+  const old=document.querySelectorAll(".pin");
+  for(let i=0;i<old.length;i++)old[i].remove();
+  if(!document.body.classList.contains("notes"))return;
+  let n=0;
+  document.querySelectorAll("[data-why]").forEach(el=>{
+    const k=el.getAttribute("data-why");if(!NOTES[k])return;
+    const b=document.createElement("button");b.className="pin";b.textContent=String(++n);
+    b.setAttribute("aria-label","Why: "+NOTES[k].h);
+    b.onclick=e=>{e.stopPropagation();openNote(k);};
+    el.appendChild(b);
+  });
+}
+function openNote(k){
+  const n=NOTES[k];if(!n)return;
+  document.getElementById("noteBody").innerHTML='<span class="eyebrow">Why it is like this</span><h4>'+esc(n.h)+"</h4><p>"+n.p+"</p>";
+  document.getElementById("notepanel").hidden=false;
+}
+const NAV={
+  store:[["orders","My requests",SVG.list],["new","Raise a request",SVG.plus]],
+  tech:[["orders","My deliveries",SVG.list]],
+  clientadm:[["insights","Insights",SVG.chart],["orders","All requests",SVG.list],["activity","Activity log",SVG.log]],
+  tower:[["board","Control tower",SVG.board],["activity","Activity log",SVG.log]],
+  driver:[["jobs","My jobs",SVG.van]]
+};
+function navCount(k){
+  if(k==="orders")return '<span class="cnt">'+DB.orders.filter(o=>mine(o,S.role)).length+"</span>";
+  if(k==="board")return '<span class="cnt">'+DB.orders.filter(o=>!closed(o)).length+"</span>";
+  if(k==="jobs")return '<span class="cnt">'+DB.orders.filter(o=>mine(o,"driver")).length+"</span>";
+  if(k==="activity")return '<span class="cnt">'+DB.orders.reduce((n,o)=>n+o.events.length,0)+"</span>";
+  return "";
+}
+function render(){
+  const me=roleOf(S.role);
+  document.getElementById("av").textContent=ini(me.name);
+  document.getElementById("nm").textContent=me.name;
+  document.getElementById("rl").textContent=me.title;
+  document.getElementById("urlbar").textContent="fulfilment.example.com/"+(S.role==="driver"?"driver":(S.tab||""));
+  document.getElementById("steps").innerHTML=STEPS.map((s,i)=>
+    '<button data-step="'+i+'" aria-current="'+(i===S.step)+'" class="'+(i<S.step?"done":"")+'"><span class="n">'+(i<S.step?"✓":i+1)+'</span><span class="l">'+esc(s.l)+'</span><span class="d">'+esc(s.d)+"</span></button>").join("");
+  document.getElementById("guideText").innerHTML=STEPS[S.step].g;
+  const nav=NAV[S.role];
+  if(!S.tab||!nav.some(n=>n[0]===S.tab))S.tab=nav[0][0];
+  const grp=(org,cls)=>'<span class="rgroup '+cls+'"><span class="org">'+esc(org)+"</span>"+
+    ROLES.filter(r=>r.org===org).map(r=>'<button data-role="'+r.key+'" aria-current="'+(r.key===S.role)+'">'+esc(r.label)+"</button>").join("")+"</span>";
+  document.getElementById("roleswitch").innerHTML=
+    '<span class="rsl">Viewing as</span>'+grp("Client","client")+grp("Ninja Van","njv");
+  document.getElementById("tabstrip").innerHTML=
+    nav.map(n=>'<button data-tab="'+n[0]+'" aria-current="'+(n[0]===S.tab)+'">'+n[2]+esc(n[1])+navCount(n[0])+"</button>").join("");
+  document.getElementById("main").innerHTML=
+    (S.flash?'<div class="note info">'+esc(S.flash)+"</div>":"")+
+    (S.open?orderView(DB.orders.filter(o=>o.id===S.open)[0]):tabView());
+  wire();decorate();tug();
+}
+
+/* Ring whatever the current step is asking for. The guide says what to do; this
+   says where, which is the half that was missing. */
+function tug(){
+  document.querySelectorAll(".tug").forEach(e=>e.classList.remove("tug"));
+  let el=null;
+  if(S.step===0&&S.tab==="new")el=document.getElementById("go");
+  else if(S.step===1)el=S.open?document.querySelector("[data-as]"):document.querySelector("#main .row.click");
+  else if(S.step===2)el=document.querySelector("[data-acc]")||document.querySelector("[data-cp]");
+  else if(S.step===3)el=document.querySelector("[data-cp4]")||document.querySelector("[data-cp]");
+  else if(S.step===4&&!S.open)el=document.querySelector("#main .row.click");
+  if(el)el.classList.add("tug");
+}
+function tabView(){
+  const k=S.role+"/"+S.tab;
+  if(k==="store/orders"||k==="tech/orders")return clientOrders(false);
+  if(k==="clientadm/orders")return clientOrders(true);
+  if(k==="store/new")return newForm();
+  if(k==="clientadm/insights")return insights();
+  if(k==="clientadm/activity")return activity(true);
+  if(k==="tower/board")return board();
+  if(k==="tower/activity")return activity(false);
+  if(k==="driver/jobs")return driverJobs();
+  return "";
+}
+function railFor(o){
+  const at=[o.acceptedAt,o.pickedAt,o.deliveredAt,o.closedAt];
+  let cur=-1;
+  for(let i=0;i<at.length;i++){if(!at[i]){cur=i;break;}}
+  let h='<span class="rail">';
+  for(let i=0;i<at.length;i++){
+    if(i)h+='<span class="link'+(at[i-1]?" on":"")+'"></span>';
+    h+='<span class="node'+(at[i]?" on":(i===cur&&!closed(o)?" now":""))+'"></span>';
+  }
+  return h+"</span>";
+}
+function row(o,mode){
+  const L=late(o),C=closed(o),s=sla(o);
+  const stripe=C?"ok":(L?"bad":(s&&s.level==="BREACH"?"bad":(s&&s.level==="WARN"?"warn":"")));
+  const mk=o.priority==="URGENT"?(C?'<span class="pill was" data-why="urgent">Was urgent</span>':'<span class="pill urgent">Urgent</span>'):"";
+  const right=mode==="client"
+    ? '<span class="state" data-why="words">'+esc(CLIENT_STAGE[o.status])+'</span><span class="when">'+(C?"Closed "+fmtD(o.closedAt):(L?"was due "+fmtT(o.dueAt):"due "+fmtT(o.dueAt)))+"</span>"
+    : '<span class="state" data-why="tower">'+esc(TOWER_STAGE[o.status])+(TOWER_ACT[o.status]?' <span style="color:var(--ink-3)">→ '+esc(TOWER_ACT[o.status])+"</span>":"")+'</span><span class="when">'+(s?(s.level==="BREACH"?dur(s.inS-s.tg)+" over":dur(s.tg-s.inS)+" left"):"—")+"</span>";
+  return '<div class="row click" data-order="'+o.id+'"><span class="stripe '+stripe+'"></span>'+railFor(o)+'<span class="ref">'+esc(o.ref)+"</span>"+mk+'<span class="site">'+esc(o.deliver)+'</span><span class="right">'+right+"</span></div>";
+}
+function clientOrders(all){
+  const rows=DB.orders.filter(o=>all||mine(o,S.role));
+  const open=rows.filter(o=>!closed(o)),bad=open.filter(late);
+  let h='<div class="hd"><div><h3>'+(all?"All requests":"My requests")+'</h3><span class="sub">Delivery requests, newest first</span></div></div>';
+  h+=bad.length
+    ? '<div class="card" data-why="panel" style="margin-bottom:12px;border-color:var(--bad)"><div class="ch" style="background:var(--bad-soft);color:var(--bad)">'+bad.length+" deliver"+(bad.length===1?"y":"ies")+' past the promised time<span class="r" style="color:var(--bad)">Ninja Van is already on these</span></div>'+bad.map(o=>row(o,"client")).join("")+"</div>"
+    : '<div class="note ok" data-why="panel"><strong>Nothing needs your attention.</strong> All '+open.length+" open deliver"+(open.length===1?"y is":"ies are")+" running to plan.</div>";
+  h+='<div class="card"><div class="ch">Every request<span class="r">'+rows.length+"</span></div>"+(rows.length?rows.map(o=>row(o,"client")).join(""):'<div class="empty">Nothing here yet.</div>')+"</div>";
+  return h;
+}
+function newForm(){
+  if(!S.draft)S.draft={pickup:DEPOTS[0],deliver:SITES[0],priority:"NORMAL",technician:"Aisyah Rahman",dueMins:210,items:[{sku:"",qty:1}]};
+  const d=S.draft;
+  return '<div class="hd"><div><h3>Request a delivery</h3><span class="sub">Ninja Van collects from your store and delivers to the job site</span></div></div>'+
+   '<div class="note info" data-why="store">You hold the parts, so you raise most of these. The request carries the technician’s name as well as yours.</div>'+
+   '<div class="card"><div style="padding:16px">'+
+   '<div class="g2"><div class="field"><label for="f1">Collect from</label><select id="f1">'+DEPOTS.map(x=>'<option'+(x===d.pickup?" selected":"")+">"+esc(x)+"</option>").join("")+'</select></div>'+
+   '<div class="field"><label for="f2">Deliver to</label><select id="f2">'+SITES.map(x=>'<option'+(x===d.deliver?" selected":"")+">"+esc(x)+"</option>").join("")+"</select></div></div>"+
+   '<div class="g2"><div class="field"><label for="f3">Technician on site</label><input id="f3" value="'+esc(d.technician)+'"></div>'+
+   '<div class="field"><label for="f4">Deliver within</label><select id="f4">'+[["90","1h 30m"],["150","2h 30m"],["210","3h 30m"],["420","7h"]].map(p=>'<option value="'+p[0]+'"'+(+p[0]===d.dueMins?" selected":"")+">"+p[1]+"</option>").join("")+"</select></div></div>"+
+   '<div class="field" data-why="pri"><label>Priority</label><div class="pri">'+
+   '<button type="button" data-pri="NORMAL" aria-pressed="'+(d.priority==="NORMAL")+'"><b>Normal</b><span>Inside the window you set</span></button>'+
+   '<button type="button" data-pri="URGENT" aria-pressed="'+(d.priority==="URGENT")+'"><b>Urgent</b><span>Jumps the queue. A stopped lift</span></button></div></div>'+
+   '<div class="field"><label>Components</label>'+d.items.map((i,x)=>
+     '<div class="itemrow" style="border:0;padding:4px 0"><select data-part="'+x+'" style="flex:1;padding:8px 10px;border:1px solid var(--rule-2);border-radius:7px;background:var(--surface);color:var(--ink);font-family:var(--body);font-size:.85rem"><option value="">Choose a part…</option>'+
+     PARTS.map(p=>'<option value="'+p[0]+'"'+(i.sku===p[0]?" selected":"")+">"+esc(p[1])+" ("+p[0]+")</option>").join("")+
+     '</select><input type="number" min="1" value="'+i.qty+'" data-qty="'+x+'"></div>').join("")+
+   '<button class="btn sm" id="addLine" style="margin-top:6px;justify-self:start">+ Add a line</button></div>'+
+   '<div style="display:flex;gap:10px;align-items:center;margin-top:6px;flex-wrap:wrap"><button class="btn primary" id="go">Submit request</button><span class="muted" style="font-size:.78rem">It lands unassigned on the control tower board.</span></div>'+
+   "</div></div>";
+}
+function insights(){
+  const done=DB.orders.filter(closed);
+  const onT=done.filter(o=>o.deliveredAt<=o.dueAt).length;
+  const pct=done.length?Math.round(onT/done.length*100):0;
+  const tot=done.map(o=>durs(o).total).filter(x=>x!=null);
+  const avg=tot.length?tot.reduce((a,b)=>a+b,0)/tot.length:null;
+  const open=DB.orders.filter(o=>!closed(o));
+  let short=0;DB.orders.forEach(o=>o.items.forEach(i=>{if(i.picked!=null&&i.picked<i.qty)short++;}));
+  const days=[];
+  for(let i=6;i>=0;i--){
+    const d=new Date(now()-i*86400000);
+    days.push({lab:d.toLocaleDateString("en-GB",{weekday:"short"}),n:DB.orders.filter(o=>new Date(o.createdAt).toDateString()===d.toDateString()).length});
+  }
+  const mx=Math.max(3,...days.map(d=>d.n));
+  let bars="";
+  days.forEach((d,i)=>{
+    const h=Math.max(3,d.n/mx*60),x=10+i*38;
+    bars+='<rect x="'+x+'" y="'+(72-h)+'" width="22" height="'+h+'" rx="3" fill="var(--brand)" opacity="'+(i===6?"1":"0.4")+'"/>'+
+      '<text x="'+(x+11)+'" y="86" text-anchor="middle" font-size="9" fill="var(--ink-3)">'+d.lab+"</text>"+
+      '<text x="'+(x+11)+'" y="'+(68-h)+'" text-anchor="middle" font-size="9" fill="var(--ink-2)">'+d.n+"</text>";
+  });
+  let siteBars="";
+  SITES.slice(0,5).forEach(s=>{
+    const n=DB.orders.filter(o=>o.deliver===s).length,w=Math.max(4,n/Math.max(1,DB.orders.length)*240);
+    siteBars+='<div style="margin-bottom:9px"><div style="display:flex;justify-content:space-between;font-size:.78rem"><span>'+esc(s)+'</span><span class="mono">'+n+'</span></div><div class="bar" style="margin-top:3px"><i style="width:'+Math.min(100,w)+'%"></i></div></div>';
+  });
+  return '<div class="hd"><div><h3>Insights</h3><span class="sub">Every figure is the gap between two recorded events</span></div></div>'+
+   '<div class="stats">'+
+   '<div class="stat good"><dt>Delivered on time</dt><dd>'+pct+'%</dd><div class="fine">'+onT+" of "+done.length+" completed</div></div>"+
+   '<div class="stat"><dt>Raised to closed</dt><dd>'+dur(avg)+'</dd><div class="fine">average, all completed</div></div>'+
+   '<div class="stat"><dt>Open now</dt><dd>'+open.length+'</dd><div class="fine">'+open.filter(late).length+" past the promise</div></div>"+
+   '<div class="stat'+(short?" bad":"")+'"><dt>Short lines</dt><dd>'+short+'</dd><div class="fine">quantity missing at collection</div></div></div>'+
+   '<div class="g2"><div class="chartbox"><h4>Requests raised</h4><p class="cap">Last seven days</p><svg viewBox="0 0 280 96" style="width:100%;height:96px" role="img" aria-label="Requests raised over the last seven days" font-family="monospace">'+bars+"</svg></div>"+
+   '<div class="chartbox"><h4>Where requests go</h4><p class="cap">By job site</p>'+siteBars+"</div></div>"+
+   '<div class="card" style="margin-top:12px"><div class="ch">Recently closed</div>'+(done.length?done.slice(0,4).map(o=>row(o,"client")).join(""):'<div class="empty">Nothing yet.</div>')+"</div>";
+}
+function scrub(note){
+  return note.replace(/\s*\(DRV-\d+\)/g,"").replace(/\b(Offered|Assigned|Released) to [^,(]+/gi,function(m,v){return v+" to a driver";});
+}
+function activity(redact){
+  const all=[];
+  DB.orders.forEach(o=>o.events.forEach(e=>all.push({o:o,e:e})));
+  all.sort((a,b)=>b.e.at-a.e.at);
+  return '<div class="hd"><div><h3>Activity log</h3><span class="sub">'+(redact?"Everything on your requests. Our side reads as Ninja Van.":"Full internal view, every actor named.")+"</span></div></div>"+
+   '<div class="card" data-why="'+(redact?"redact":"log")+'">'+all.slice(0,14).map(function(r){
+     const int=r.e.role==="NJV"||r.e.role==="DRIVER";
+     const who=(redact&&int)?"Ninja Van":r.e.who;
+     const note=(redact&&int)?scrub(r.e.note):r.e.note;
+     return '<div class="row"><span class="when">'+fmtT(r.e.at)+'</span><span class="ref">'+esc(r.o.ref)+'</span><span class="site" style="font-weight:400;color:var(--ink-2)">'+esc(who)+'</span><span class="right"><span class="state" style="color:var(--ink)">'+esc(note)+"</span></span></div>";
+   }).join("")+"</div>";
+}
+function board(){
+  const open=DB.orders.filter(o=>!closed(o));
+  const flag=open.filter(o=>{const s=sla(o);return s&&s.level!=="OK";});
+  return '<div class="hd"><div><h3>Control tower</h3><span class="sub">Live board. Assignment is manual, so amber and red need a person.</span></div></div>'+
+   '<div class="stats"><div class="stat'+(flag.length?" bad":"")+'"><dt>Need a person</dt><dd>'+flag.length+'</dd><div class="fine">past or near a stage target</div></div>'+
+   '<div class="stat"><dt>Unassigned</dt><dd>'+open.filter(o=>o.status==="PENDING").length+'</dd><div class="fine">no driver offered yet</div></div>'+
+   '<div class="stat"><dt>In transit</dt><dd>'+open.filter(o=>o.status==="PICKED_UP").length+'</dd><div class="fine">parts on a van</div></div>'+
+   '<div class="stat"><dt>Open</dt><dd>'+open.length+'</dd><div class="fine">across all stages</div></div></div>'+
+   '<div class="card" data-why="manual" style="margin-bottom:12px"><div class="ch" style="background:'+(flag.length?"var(--warn-soft);color:var(--warn)":"var(--ok-soft);color:var(--ok)")+'">'+
+   (flag.length?flag.length+" order"+(flag.length===1?"":"s")+" need a person":"Everything is within target")+'<span class="r" style="color:inherit">Nobody is auto-assigned</span></div>'+
+   (flag.length?flag.map(o=>row(o,"tower")).join(""):'<div class="empty">Nothing stalled.</div>')+"</div>"+
+   '<div class="card"><div class="ch">Every open request<span class="r">'+open.length+"</span></div>"+
+   (open.length?open.map(o=>row(o,"tower")).join(""):'<div class="empty">No open requests.</div>')+"</div>";
+}
+function driverJobs(){
+  const js=DB.orders.filter(o=>mine(o,"driver"));
+  if(!js.length)return '<div class="empty">No jobs on this phone.<br><span style="font-size:.8rem">Go to the control tower and offer one to Arun Maniam (DRV-005).</span></div>';
+  return '<div class="device"><div class="nub"><i></i></div><div class="scr">'+js.map(job).join("")+"</div></div>";
+}
+function job(o){
+  const st=[["Job accepted",o.acceptedAt],["Collected from the store",o.pickedAt],["Delivered to site",o.deliveredAt],["Job closed",o.closedAt]];
+  let cur=-1;
+  for(let i=0;i<st.length;i++){if(!st[i][1]){cur=i;break;}}
+  let h='<div class="dtop"><div class="r1">'+esc(o.ref)+(o.priority==="URGENT"?" · URGENT":"")+'</div><div class="r2">'+esc(o.deliver)+'</div></div><div class="dbody">'+
+    '<div style="font-size:.75rem;color:var(--ink-3);margin-bottom:8px">from '+esc(o.pickup)+" · deliver by "+fmtT(o.dueAt)+"</div>";
+  h+=st.map((s,i)=>'<div class="step"><span class="tick'+(s[1]?" done":(i===cur?" now":""))+'">'+(s[1]?"✓":i+1)+'</span><span>'+esc(s[0])+(s[1]?'<br><span class="mono" style="font-size:.7rem;color:var(--ink-3)">'+fmtT(s[1])+"</span>":"")+"</span></div>").join("");
+  if(o.status==="OFFERED")h+='<div style="margin-top:12px;display:flex;gap:8px"><button class="btn primary" style="flex:1" data-acc="'+o.id+'">Accept</button><button class="btn" data-dec="'+o.id+'">Decline</button></div>';
+  else if(o.status==="ACCEPTED")h+=cpForm(o,"CP2");
+  else if(o.status==="PICKED_UP")h+=cpForm(o,"CP3");
+  else if(o.status==="DELIVERED")h+='<div style="margin-top:12px"><button class="btn primary" style="width:100%" data-cp4="'+o.id+'">Close the job</button></div>';
+  return h+"</div>";
+}
+function cpForm(o,k){
+  const coll=k==="CP2";
+  let h='<div style="margin-top:12px;border-top:1px solid var(--rule);padding-top:11px">'+
+   '<div style="font-size:.7rem;font-weight:600;color:var(--ink-3);letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px">'+(coll?"What is on the shelf":"What you are handing over")+"</div>"+
+   '<div data-why="items">'+o.items.map((i,x)=>{
+     const mxq=coll?i.qty:i.picked;
+     return '<div class="itemrow"><span class="mark" id="m'+o.id+"-"+x+'">✓</span><span style="flex:1"><span style="display:block">'+esc(i.desc)+'</span><span class="mono" style="font-size:.67rem;color:var(--ink-3)">'+esc(i.sku)+" · ordered "+i.qty+'</span></span><input type="number" min="0" max="'+mxq+'" value="'+mxq+'" data-q="'+x+'" data-o="'+o.id+'"></div>';
+   }).join("")+"</div>"+
+   '<div class="note info" style="margin:10px 0 0;font-size:.75rem;padding:8px 10px">Photo captured. Time and location written onto it by the server.</div>';
+  if(!coll)h+='<div style="margin-top:11px" data-why="sign"><div style="font-size:.7rem;font-weight:600;color:var(--ink-3);letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px">Signed by</div>'+
+   '<div class="field" style="margin-bottom:7px"><input id="sn" placeholder="Name of the person receiving" value="'+esc(o.technician)+'"></div>'+
+   '<canvas class="sig" id="sp" width="560" height="220" aria-label="Signature pad"></canvas>'+
+   '<div style="display:flex;justify-content:space-between;align-items:center;margin-top:5px"><span style="font-size:.7rem;color:var(--ink-3)">Sign with your mouse or finger</span><button class="btn sm ghost" id="sc">Clear</button></div></div>';
+  return h+'<div style="margin-top:12px"><button class="btn primary" style="width:100%" data-cp="'+k+'" data-o="'+o.id+'">'+(coll?"Confirm collection":"Confirm delivery")+"</button></div></div>";
+}
+function r2(k,v){return '<div class="row"><span class="site" style="font-weight:400;color:var(--ink-2)">'+esc(k)+'</span><span class="right"><span class="state" style="color:var(--ink);font-weight:500">'+esc(v)+"</span></span></div>";}
+function lineState(i){
+  if(i.delivered!=null)return i.delivered>=i.qty?{c:"ok",l:"Delivered",col:"var(--ok)"}:{c:"short",l:"Short by "+(i.qty-i.delivered),col:"var(--warn)"};
+  if(i.picked!=null)return i.picked>=i.qty?{c:"part",l:"Collected",col:"var(--accent)"}:{c:"short",l:"Short by "+(i.qty-i.picked),col:"var(--warn)"};
+  return {c:"",l:"Not collected yet",col:"var(--ink-3)"};
+}
+function itemSum(o){
+  const s=o.items.map(lineState);
+  const del=s.filter(x=>x.l==="Delivered").length,col=s.filter(x=>x.l==="Collected").length,sh=s.filter(x=>x.l.indexOf("Short")===0).length;
+  const n=(del>0||col===0)?del:col, w=(del>0||col===0)?"delivered in full":"collected in full";
+  return n+" of "+o.items.length+" "+w+(sh?" · "+sh+" short":"");
+}
+function sig(o){
+  if(o.signature&&o.signature!=="seeded")return '<img src="'+o.signature+'" alt="Signature" style="height:46px;display:block">';
+  let sd=0;const s=o.signedBy||"x";
+  for(let i=0;i<s.length;i++)sd=(sd*31+s.charCodeAt(i))%9973;
+  const r=()=>{sd=(sd*1103515245+12345)%2147483648;return sd/2147483648;};
+  let x=12,p="M12 30";
+  for(let i=0;i<6;i++){const a=x+8+r()*10,b=x+16+r()*12;x+=22+r()*10;p+=" C "+a.toFixed(1)+" "+(18-r()*12).toFixed(1)+", "+b.toFixed(1)+" "+(34+r()*10).toFixed(1)+", "+x.toFixed(1)+" "+(30+(r()-0.5)*8).toFixed(1);}
+  return '<svg viewBox="0 0 200 52" style="height:46px;width:165px;display:block"><path d="'+p+'" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="color:var(--ink-2)"/></svg>';
+}
+function orderView(o){
+  if(!o)return "";
+  const T=S.role==="tower",d=durs(o);
+  const stg=[["toOffer","Finding a driver","Ninja Van"],["toAccept","Driver accepting","Ninja Van"],["toPickup","Reaching the store and loading","Ninja Van and the store"],["inTransit","Driving to site","Ninja Van"],["toClose","Closing the job off","Ninja Van"]];
+  const has=stg.filter(s=>d[s[0]]!=null);
+  const mx=has.length?Math.max.apply(null,has.map(s=>d[s[0]])):1;
+  let slow=null;
+  has.forEach(s=>{if(!slow||d[s[0]]>d[slow[0]])slow=s;});
+  let h='<div class="hd"><button class="btn sm" id="back">← Back</button><div><h3>'+esc(o.ref)+'</h3><span class="sub">'+esc(o.deliver)+'</span></div><div class="act">'+
+    (o.priority==="URGENT"?(closed(o)?'<span class="pill was">Was urgent</span>':'<span class="pill urgent">Urgent</span>'):"")+
+    '<span class="pill '+(closed(o)?"ok":"n")+'">'+esc(STATUS_LABEL[o.status])+"</span></div></div>";
+  h+='<div class="detail">';
+  h+='<div class="card"><div class="ch">Request</div>'+r2("Collect from",o.pickup)+r2("Deliver to",o.deliver)+r2("Technician on site",o.technician)+r2("Raised by",o.raisedByName)+r2("Deliver by",fmtDT(o.dueAt))+r2("Driver",o.driver?o.driver.name+" ("+o.driver.code+")":"Not assigned yet")+"</div>";
+  if(T&&o.status==="PENDING"){
+    h+='<div class="card wide" data-why="manual"><div class="ch">Offer it to a driver<span class="r">their live load is shown</span></div><div style="padding:10px 14px;display:grid;gap:8px">'+
+      DRIVERS.map(dr=>{
+        const ld=DB.orders.filter(x=>x.driver&&x.driver.code===dr.code&&!closed(x)).length;
+        return '<div class="row" style="border:1px solid var(--rule);border-radius:8px"><span class="site">'+esc(dr.name)+'<br><span class="mono" style="font-size:.67rem;color:var(--ink-3);font-weight:400">'+esc(dr.code)+" · "+esc(dr.v)+'</span></span><span class="right"><span class="pill n">'+ld+' live</span><button class="btn sm primary" data-as="'+o.id+"|"+dr.code+'">Offer</button></span></div>';
+      }).join("")+"</div></div>";
+  }
+  h+='<div class="card wide" data-why="items"><div class="ch">Items<span class="r">'+itemSum(o)+'</span></div><div style="padding:6px 14px">'+
+    o.items.map(i=>{
+      const s=lineState(i);
+      return '<div class="itemrow"><span class="mark '+s.c+'">✓</span><span style="flex:1"><span style="display:block;font-weight:500">'+esc(i.desc)+'</span><span style="font-size:.72rem;color:'+s.col+'">'+esc(s.l)+(i.shortReason?" · "+esc(i.shortReason):"")+'</span></span><span class="mono" style="font-size:.69rem;color:var(--ink-3)">'+esc(i.sku)+'</span><span class="mono" style="width:2rem;text-align:right">'+i.qty+'</span><span class="mono" style="width:2rem;text-align:right;color:var(--ink-2)">'+(i.picked==null?"—":i.picked)+'</span><span class="mono" style="width:2rem;text-align:right;color:var(--ink-2)">'+(i.delivered==null?"—":i.delivered)+"</span></div>";
+    }).join("")+
+    '<div class="itemrow" style="border:0;padding-top:2px"><span style="flex:1"></span><span class="eyebrow" style="width:2rem;text-align:right;font-size:.52rem">Ord</span><span class="eyebrow" style="width:2rem;text-align:right;font-size:.52rem">Pick</span><span class="eyebrow" style="width:2rem;text-align:right;font-size:.52rem">Del</span></div></div></div>';
+  if(o.signedAt)h+='<div class="card" data-why="sign"><div class="ch">Proof of delivery</div><div style="padding:14px;display:flex;gap:16px;align-items:center;flex-wrap:wrap"><div style="border:1px solid var(--rule);border-radius:8px;padding:8px;background:var(--surface)">'+sig(o)+'</div><div><div style="font-weight:600">'+esc(o.signedBy)+'</div><div class="mono" style="font-size:.72rem;color:var(--ink-3)">'+fmtDT(o.signedAt)+'</div><div class="muted" style="font-size:.76rem;margin-top:3px">'+o.photos+" proof photo"+(o.photos===1?"":"s")+" on file</div></div></div></div>";
+  h+='<div class="card" data-why="time"><div class="ch">'+(T?"Where the time went":"How long it took")+'</div><div style="padding:14px">';
+  if(!has.length)h+='<p class="muted" style="font-size:.85rem">Nothing to measure yet.</p>';
+  else{
+    h+='<p style="font-size:.9rem;margin-bottom:11px">'+(d.total!=null
+      ? "<strong>"+dur(d.total)+"</strong> from raised to closed"+(o.deliveredAt?(o.deliveredAt<=o.dueAt?'<span style="color:var(--ok)">, inside the window</span>':'<span style="color:var(--bad)">, past the window</span>'):"")+(T&&slow?". Longest stretch: "+slow[1].toLowerCase()+".":".")
+      : (T&&slow?"Still running. Longest so far: "+slow[1].toLowerCase()+".":"Still in progress."))+"</p>";
+    if(T)h+=has.map(s=>{
+      const hot=slow&&slow[0]===s[0];
+      return '<div style="margin-bottom:10px"><div style="display:flex;justify-content:space-between;font-size:.83rem'+(hot?";font-weight:600":"")+'"><span>'+esc(s[1])+'</span><span class="mono">'+dur(d[s[0]])+'</span></div><div class="bar" style="margin-top:4px"><i class="'+(hot?"hot":"")+'" style="width:'+Math.max(3,d[s[0]]/mx*100)+'%"></i></div><div style="font-size:.7rem;color:var(--ink-3);margin-top:2px">'+esc(s[2])+"</div></div>";
+    }).join("");
+  }
+  h+="</div></div>";
+  h+='<div class="card wide" data-why="log"><div class="ch">Activity timeline</div><div style="padding:6px 14px"><div class="tl">'+
+    o.events.slice().sort((a,b)=>a.at-b.at).map(e=>{
+      const int=e.role==="NJV"||e.role==="DRIVER",red=S.role!=="tower";
+      const who=(red&&int)?"Ninja Van":e.who;
+      const note=(red&&int)?scrub(e.note):e.note;
+      return '<div class="e"><span class="t">'+fmtT(e.at)+'</span><span>'+esc(note)+'<br><span class="w">'+esc(who)+"</span></span></div>";
+    }).join("")+"</div></div></div>";
+  return h+"</div>";
+}
+let sctx,drawing=false,dirty=false;
+function wire(){
+  document.querySelectorAll("[data-step]").forEach(b=>{b.onclick=()=>gotoStep(+b.dataset.step);});
+  document.querySelectorAll("#roleswitch [data-role]").forEach(b=>{b.onclick=()=>{S.role=b.dataset.role;S.tab=null;S.open=null;render();};});
+  document.querySelectorAll("#tabstrip [data-tab]").forEach(b=>{b.onclick=()=>{S.tab=b.dataset.tab;S.open=null;render();};});
+  document.querySelectorAll(".row.click[data-order]").forEach(el=>{el.onclick=()=>{S.open=+el.dataset.order;render();};});
+  const bk=document.getElementById("back");if(bk)bk.onclick=()=>{S.open=null;render();};
+  document.querySelectorAll("[data-as]").forEach(b=>{b.onclick=e=>{
+    e.stopPropagation();
+    const parts=b.dataset.as.split("|");
+    assign(DB.orders.filter(o=>o.id===+parts[0])[0],DRIVERS.filter(d=>d.code===parts[1])[0]);
+  };});
+  document.querySelectorAll("[data-acc]").forEach(b=>{b.onclick=()=>respond(DB.orders.filter(o=>o.id===+b.dataset.acc)[0],true);});
+  document.querySelectorAll("[data-dec]").forEach(b=>{b.onclick=()=>respond(DB.orders.filter(o=>o.id===+b.dataset.dec)[0],false);});
+  document.querySelectorAll("[data-cp4]").forEach(b=>{b.onclick=()=>cp(DB.orders.filter(o=>o.id===+b.dataset.cp4)[0],"CP4",{});});
+  document.querySelectorAll("[data-q]").forEach(i=>{
+    i.oninput=function(){
+      const o=DB.orders.filter(x=>x.id===+i.dataset.o)[0],x=+i.dataset.q,m=document.getElementById("m"+o.id+"-"+x);
+      if(!m)return;
+      const want=o.status==="ACCEPTED"?o.items[x].qty:o.items[x].picked;
+      m.className="mark "+(+i.value>=want?"ok":"short");
+    };
+    i.oninput();
+  });
+  document.querySelectorAll("[data-cp]").forEach(b=>{b.onclick=()=>{
+    const o=DB.orders.filter(x=>x.id===+b.dataset.o)[0],k=b.dataset.cp;
+    const q=[].slice.call(document.querySelectorAll('[data-q][data-o="'+o.id+'"]')).map(i=>+i.value);
+    const rs=o.items.map((i,x)=>q[x]<i.qty?"Not enough on the shelf":null);
+    if(k==="CP3"){
+      const nm=document.getElementById("sn").value.trim();
+      if(!nm){flash("Who signed for it? Enter a name first.");render();return;}
+      if(!dirty){flash("Get it signed first. Hand the phone to whoever is receiving.");render();return;}
+      cp(o,"CP3",{qty:q,reason:rs,sig:document.getElementById("sp").toDataURL("image/png"),name:nm});
+    }else cp(o,"CP2",{qty:q,reason:rs});
+  };});
+  const pad=document.getElementById("sp");
+  if(pad){
+    dirty=false;sctx=pad.getContext("2d");
+    sctx.lineWidth=4;sctx.lineCap="round";sctx.lineJoin="round";
+    sctx.strokeStyle=getComputedStyle(document.documentElement).getPropertyValue("--ink").trim()||"#111";
+    const pt=e=>{const r=pad.getBoundingClientRect();return[(e.clientX-r.left)*(pad.width/r.width),(e.clientY-r.top)*(pad.height/r.height)];};
+    pad.onpointerdown=e=>{pad.setPointerCapture(e.pointerId);drawing=true;const p=pt(e);sctx.beginPath();sctx.moveTo(p[0],p[1]);};
+    pad.onpointermove=e=>{if(!drawing)return;e.preventDefault();const p=pt(e);sctx.lineTo(p[0],p[1]);sctx.stroke();dirty=true;};
+    pad.onpointerup=pad.onpointercancel=()=>{drawing=false;};
+    document.getElementById("sc").onclick=()=>{sctx.clearRect(0,0,pad.width,pad.height);dirty=false;};
+  }
+  document.querySelectorAll("[data-pri]").forEach(b=>{b.onclick=()=>{grab();S.draft.priority=b.dataset.pri;render();};});
+  const al=document.getElementById("addLine");
+  if(al)al.onclick=()=>{grab();S.draft.items.push({sku:"",qty:1});render();};
+  const go=document.getElementById("go");
+  if(go)go.onclick=()=>{
+    grab();
+    const items=S.draft.items.filter(i=>i.sku).map(i=>{
+      const p=PARTS.filter(x=>x[0]===i.sku)[0];
+      return {sku:i.sku,desc:p?p[1]:i.sku,qty:i.qty,picked:null,delivered:null,shortReason:null};
+    });
+    if(!items.length){flash("Choose at least one component.");render();return;}
+    const d=S.draft;S.draft=null;
+    createOrder({pickup:d.pickup,deliver:d.deliver,priority:d.priority,technician:d.technician,dueMins:d.dueMins,items:items});
+  };
+}
+function grab(){
+  const g=i=>document.getElementById(i);
+  if(!g("f1")||!S.draft)return;
+  S.draft.pickup=g("f1").value;S.draft.deliver=g("f2").value;S.draft.technician=g("f3").value;S.draft.dueMins=+g("f4").value;
+  document.querySelectorAll("[data-part]").forEach(s=>{S.draft.items[+s.dataset.part].sku=s.value;});
+  document.querySelectorAll("[data-qty]").forEach(i=>{S.draft.items[+i.dataset.qty].qty=Math.max(1,+i.value||1);});
+}
+document.getElementById("noteToggle").onclick=function(){
+  const on=this.getAttribute("aria-pressed")!=="true";
+  this.setAttribute("aria-pressed",String(on));
+  document.body.classList.toggle("notes",on);
+  if(!on)document.getElementById("notepanel").hidden=true;
+  decorate();
+};
+document.getElementById("noteClose").onclick=function(){document.getElementById("notepanel").hidden=true;};
+document.getElementById("resetBtn").onclick=function(){seed();render();};
+document.getElementById("guideNext").onclick=function(){gotoStep(S.step+1);};
+document.getElementById("guideReset").onclick=function(){seed();gotoStep(0);};
+
+const DECS=[
+  {k:"Scope",t:"Assignment stays manual",c:"No auto-assign, no scheduler. A dispatcher picks every driver.",p:"The rules a dispatcher actually uses have never been written down. Encoding a guess in week one buys a plausible algorithm and a year of unlearning it. Instead each order carries a stage flag worked out on read, and a human decides."},
+  {k:"Data",t:"The event log is the record",c:"Every state change appends actor, role and time.",p:"The log wins any disagreement with the order table, and every timing figure in the product is the gap between two of its rows. A new metric becomes a query rather than a migration and a backfill."},
+  {k:"Reversal",t:"The client could read our roster",c:"A log that looked harmless per order was a staffing disclosure in aggregate.",p:"One order tells a client their parts moved. A searchable log of every order tells them how many dispatchers we run, which of them works their account and which drivers we use. I had even written a comment arguing the opposite."},
+  {k:"Reversal",t:"A panel with no rule is just the list",c:"I calmed an alarming panel until it had no reason to exist.",p:"Toning it down made it a shorter copy of the list directly above the list, with no way to tell why those three orders and not the other three. It needed a rule you can say out loud: things that have actually gone wrong for you.",was:"6 deliveries at risk of being late",now:"Nothing needs your attention. All 6 running to plan."},
+  {k:"Reversal",t:"Urgency expires",c:"A finished job carrying a red badge trains people to stop seeing red.",p:"Closed orders kept the badge, the stripe and the tint, so completed work read as a pile of emergencies. Dropping it entirely lost a fact people wanted, so it now rides quietly on the second line.",was:"URGENT on a job closed two days ago",now:"Was urgent"},
+  {k:"Ordering",t:"Signature before checkpoint",c:"Which of two writes goes first is a product decision.",p:"A delivery that needs re-tapping is an annoyance. A delivery filed as signed for when the signature never saved is a hole in exactly the evidence the feature exists to produce, and nobody finds out until it is needed."}
+];
+document.getElementById("deck").innerHTML=DECS.map(d=>
+  '<div class="dcard"><span class="k">'+esc(d.k)+'</span><h3>'+esc(d.t)+'</h3><p class="claim">'+esc(d.c)+"</p><p>"+esc(d.p)+"</p>"+
+  (d.was?'<div class="flip"><span class="was">'+esc(d.was)+'</span><span class="now">'+esc(d.now)+"</span></div>":"")+"</div>").join("");
+
+const OPENS=[
+  ["Drivers have no corporate account, so no real login yet","Identity comes from Google SSO, which covers both companies' office staff and nobody in a van. Drivers need phone and one-time passcode on a path deliberately exempt from SSO. Until then the driver view sits behind a demo switch: fine for a walkthrough, unacceptable with real data."],
+  ["Automating assignment is not just an algorithm","It needs a distributed lock before it can run at all, or two backend replicas offer the same job to two drivers. That is the easy half. The hard half is that nobody has written down the rules a dispatcher uses, and I would rather watch one work for a fortnight than encode a guess."],
+  ["Success metrics are not agreed","The dashboard reports against stage targets I set myself, so every “at risk” figure is measured against a number nobody has signed off. On-time rate and raised-to-on-site are measurable today; cost per delivery needs a cost model that does not exist."],
+  ["The static analysis findings are open","Every deploy runs secret scanning, static analysis and dependency checks. Secrets are clean, which is the one that would matter most. The rest have findings nobody has triaged, and they now block promotion to production."]
+];
+document.getElementById("opens").innerHTML=OPENS.map(o=>"<div><h3>"+esc(o[0])+"</h3><p>"+esc(o[1])+"</p></div>").join("");
+
+seed();render();
+</script>
+</body>
+</html>
